@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Detalles de la Habitación</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <header class="bg-dark text-white text-center py-3">
+        <h1>Detalles de la Habitación</h1>
+    </header>
+    <main class="container mt-4">
+        {% if habitacion.imagen %}
+            <img src="{{ habitacion.imagen.url }}" alt="Imagen de la habitación">
+        {% else %}
+            <p>No hay imagen disponible</p>
+        {% endif %}
+        <h2>Habitacion {{ habitacion.numero }}</h2>
+        <p>Tipo: {{ habitacion.tipo }}</p>
+        <p>Precio: {{ habitacion.costo_base }}</p>
+        <p>Descripcion: {{ habitacion.caracteristicas }}</p>
+        <p>Estado: {{ habitacion.estado }}</p>
+        <p>Capacidad: {{ habitacion.capacidad }}</p>
+        <p>Camas sencillas: {{ habitacion.nro_cama_sencilla }}</p>
+        <p>Camas dobles: {{ habitacion.nro_cama_doble }}</p>
+        <p>Camarotes: {{ habitacion.nro_camarotes }}</p>
+        <form class="mb-3">
+            <div class="form-group">
+                <label for="fechaInicio">Fecha de Inicio:</label>
+                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
+            </div>
+            <div class="form-group">
+                <label for="fechaFin">Fecha de Fin:</label>
+                <input type="date" class="form-control" id="fechaFin" name="fechaFin">
+            </div>
+            <button type="submit" class="btn btn-primary">reservar</button>
+        </form>
+    </main>
+</body>
+</html> 

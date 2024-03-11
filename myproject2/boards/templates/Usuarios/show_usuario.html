@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}USUARIOS{% endblock title %}
+
+{% block content %}
+<div class="col-md-12">
+    <span><a href="/addnew_usuario" class="btn btn-primary">Aregar usuario</a></span>
+    <div class="table-responsive">
+        <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
+        <thead>
+            <th><input type="checkbox" id="checkall" /></th>
+            <th>Documento</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Genero</th>
+            <th>Estado</th>
+            <th>Contraseña</th>
+            <th>Tipo</th>
+            <th>Foto</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        <tbody>
+            {% for usu in usuarios %}
+                <tr>
+                <td><input type="checkbox" class="checkthis" /></td>
+                <td>{{ usu.documento }}</td>
+                <td>{{ usu.usuNombres }}</td>
+                <td>{{ usu.usuApellidos }}</td>
+                <td>{{ usu.email }}</td>
+                <td>{{ usu.telefono }}</td>
+                <td>{{ usu.genero }}</td>
+                <td>{{ usu.estado }}</td>
+                <td>{{ usu.usuContraseña }}</td>
+                <td>{{ usu.id_tipo }}</td>
+                <td>{% if usu.foto %}
+                        <img src="{{ usuario.foto.url }}" alt="Foto de perfil">{% endif %}</td>
+
+                <td><a href="/edit_usuario/{{ usu.documento }}" class="btn btn-primary">Edit</a></td>
+                <td><a href="/delete_usuario/{{ usu.documento }}" class="btn btn-danger">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

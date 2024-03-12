@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}AGREGAR Tipo Producto{% endblock title %}
+
+{% block content %}
+<div class="col-md-12">
+    <form method="POST" class="post-form" action="/addnew_tipoproducto">
+        {% csrf_token %}
+        <div class="container">
+            <div class="col-12">
+                <h3>Enter Details</h3>
+            </div>
+            <div class="mb-3">
+                <label>Id:</label>
+                {{ form.id }}
+            </div>
+            <div class="mb-3">
+                <label>Tipo:</label>
+                {{ form.categoria }}
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

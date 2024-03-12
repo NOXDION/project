@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}EDITAR USUARIOS{% endblock title %}
+
+{% block content %}
+<div class="col-md-12">
+    <form method="POST" class="post-form" action="/update_usuario/{{usuario.documento}}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <div class="col-12">
+                <h3>Update Details</h3>
+            </div>
+            <div class="mb-3">
+                <label>Documento:</label>
+                <input type="text" class="form-control" name="documento" id="id_documento" required maxlength="20" value="{{ usuario.documento }}"/>
+            </div>
+            <div class="mb-3">
+                <label>Nombres:</label>
+                <input type="text" class="form-control" name="usuNombres" id="id_usuNombres" required maxlength="100" value="{{ usuario.usuNombres }}" />
+            </div>
+            <div class="mb-3">
+                <label>Apellidos:</label>
+                <input type="text" class="form-control" name="usuApellidos" id="id_usuApellidos" required maxlength="100" value="{{ usuario.usuApellidos }}" />
+            </div>
+            <div class="mb-3">
+                <label>Email:</label>
+                <input type="text" class="form-control" name="email" id="id_email" maxlength="100" value="{{ usuario.email }}" />
+            </div>
+            <div class="mb-3">
+                <label>Teléfono:</label>
+                <input type="text" class="form-control" name="telefono" id="id_telefono" maxlength="15" value="{{ usuario.telefono }}" />
+            </div>
+            <div class="mb-3">
+                <label>Género:</label>
+                <input type="text" class="form-control" name="genero" id="id_genero" maxlength="20" value="{{ usuario.genero }}" />
+            </div>
+            <div class="mb-3">
+                <label>Estado:</label>
+                <input type="text" class="form-control" name="estado" id="id_estado" maxlength="20" value="{{ usuario.estado }}" />
+            </div>
+            <div class="mb-3">
+                <label>Contraseña:</label>
+                <input type="text" class="form-control" name="usuContraseña" id="id_usuContraseña" required maxlength="200" value="{{ usuario.usuContraseña }}" />
+            </div>
+            <div class="mb-3">
+                <label>ID Tipo:</label>
+                <select class="form-control" name="id_tipo" id="id_tipo" required>
+                    {% for tipo_usuario in tipos_usuarios %}
+                        <option value="{{ tipo_usuario.id }}" {% if tipo_usuario.id == usuario.id_tipo.pk %}selected{% endif %}>{{ tipo_usuario.rol }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label>Foto:</label>
+                <input type="file" class="form-control" name="foto" id="foto" accept="image/*">
+                {% if usu.foto %}
+                    <p>Foto actual:</p>
+                    <img src="{{ usu.foto.url }}" alt="Foto" style="max-width: 200px;">
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success btn-lg">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}AGREGAR Producto{% endblock title %}
+
+{% block content %}
+<div class="col-md-12">
+    <form method="POST" class="post-form" action="/addnew_reserva/">
+        {% csrf_token %}
+        <div class="container">
+            <div class="col-12">
+            <h3>Ingrese los Detalles</h3>
+            </div>
+            {{ form.as_p }}
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

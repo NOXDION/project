@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <title>HOTEL - Inicio de Sesión y Registro</title>
+</head>
+<body>
+  <!-- Formulario de Ingreso -->
+  <section class="section__container login__container">
+
+    {% if messages %}
+        <div class="alert alert-danger">
+            <ul class="pl-0">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form action="#" class="login__form" method="post" action="{% url 'signin' %}">
+
+        {% csrf_token %}
+
+      <div class="input__group">
+        <span><i class="ri-mail-line"></i></span>
+        <div>
+          <label>Usuario:</label>
+          {{ form.usuNombres }}
+          {{ form.usuNombres.errors }}
+        </div>
+      </div>
+      <div class="input__group">
+        <span><i class="ri-lock-password-line"></i></span>
+        <div>
+          <label>Contraseña</label>
+          {{ form.usuContraseña }}
+          {{ form.usuContraseña.errors }}
+        </div>
+      </div>
+      <div class="input__group input__btn">
+        <button class="btn" type="submit">Iniciar Sesión</button>
+      </div>
+    </form>
+  </section>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="{% static 'main.js' %}"></script>
+</body>
+</html>

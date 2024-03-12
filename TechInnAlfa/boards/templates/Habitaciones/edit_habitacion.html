@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}EDITAR HABITACION{% endblock title %}
+
+{% block content %}
+<div class="col-md-12">
+    <form method="POST" class="post-form" action="/update_habitacion/{{habitacion.numero}}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <div class="col-12">
+                <h3>Update Details</h3>
+            </div>
+            <div class="mb-3">
+                <label>Numero habitacion:</label>
+                <input type="text" class="form-control" name="numero" id="numero" readonly value="{{ habitacion.numero }}" enctype="multipart/form-data" />
+            </div>
+            <div class="mb-3">
+                <label>Estado:</label>
+                <select class="form-control" name="estado" id="estado" required>
+                    <option value="Disponible" {% if habitacion.estado == 'Disponible' %}selected{% endif %}>Disponible</option>
+                    <option value="Ocupado" {% if habitacion.estado == 'Ocupado' %}selected{% endif %}>Ocupado</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label>Caracteristicas:</label>
+                <input type="text" class="form-control" name="caracteristicas" id="caracteristicas" required maxlength="100" value="{{ habitacion.caracteristicas }}" />
+            </div>
+            <div class="mb-3">
+                <label>Costo Base:</label>
+                <input type="number" class="form-control" name="costo_base" id="costo_base" required value="{{ habitacion.costo_base }}" />
+            </div>
+            <div class="mb-3">
+                <label>Capacidad:</label>
+                <input type="number" class="form-control" name="capacidad" id="capacidad" required value="{{ habitacion.capacidad }}" />
+            </div>
+            <div class="mb-3">
+                <label>nro Cama Sencilla:</label>
+                <input type="number" class="form-control" name="nro_cama_sencilla" id="nro_cama_sencilla" required value="{{ habitacion.nro_cama_sencilla }}" />
+            </div>
+            <div class="mb-3">
+                <label>nro Cama Doble:</label>
+                <input type="number" class="form-control" name="nro_cama_doble" id="nro_cama_doble" required value="{{ habitacion.nro_cama_doble }}" />
+            </div>
+            <div class="mb-3">
+                <label>nro Camarote:</label>
+                <input type="number" class="form-control" name="nro_camarotes" id="nro_camarotes" required value="{{ habitacion.nro_camarotes }}" />
+            </div>
+            <div class="mb-3">
+                <label for="tipo">Tipo:</label>
+                <select class="form-control" name="tipo" id="tipo" required>
+                    {% for tipo_habitacion in tipos_habitacion %}
+                        <option value="{{ tipo_habitacion.id }}" {% if tipo_habitacion.id == habitacion.tipo.pk %}selected{% endif %}>{{ tipo_habitacion.tipo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label>Imagen:</label>
+                <input type="file" class="form-control" name="imagen" id="imagen" accept="image/*">
+                {% if habitacion.imagen %}
+                    <p>Imagen actual:</p>
+                    <img src="{{ habitacion.imagen.url }}" alt="Imagen de la habitación" style="max-width: 200px;">
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success btn-lg">Update</button>
+            </div>
+        </div>
+    </form> 
+</div>
+{% endblock content %}

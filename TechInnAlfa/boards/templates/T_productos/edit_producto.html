@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}EDITAR TIPO PRODUCTO{% endblock title %}
+
+{% block content %}
+<div class="col-md-12">
+    <form method="POST" class="post-form" action="/update_tipoproducto/{{tipoproducto.id}}">
+        {% csrf_token %}
+        <div class="container">
+            <div class="col-12">
+                <h3>Update Details</h3>
+            </div>
+            <div class="mb-3">
+                <label>Id:</label>
+                <input type="text" class="form-control" name="id" id="id" value="{{ tipoproducto.id }}"/>
+            </div>
+            <div class="mb-3">
+                <label>Tipo:</label>
+                <input type="text" class="form-control" name="categoria" id="categoria" value="{{ tipoproducto.categoria }}"/>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success btn-lg">Update</button>
+            </div>
+        </div>
+    </form> 
+</div>
+{% endblock content %}

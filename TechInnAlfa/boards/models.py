@@ -4,12 +4,16 @@ from django.db import models
 class TipoUsuario(models.Model):
     id = models.AutoField(primary_key=True)
     rol = models.CharField(max_length=20, null=True, default=None)
+    class Meta:
+        db_table = 'tbTipoUsuario'
 
     def __str__(self):
         return self.rol
 
 class TipoHabitacion(models.Model):
     tipo = models.CharField(max_length=20)
+    class Meta:
+        db_table = 'tbTipoHabitacion'
 
     def __str__(self):
         return self.tipo
@@ -17,30 +21,37 @@ class TipoHabitacion(models.Model):
 class TipoProducto(models.Model):
     id = models.AutoField(primary_key=True)
     categoria = models.CharField(max_length=20, null=True)
+    class Meta:
+        db_table = 'tbTipoProducto'
 
     def __str__(self):
         return self.categoria
 
 class TipoServicio(models.Model):
     nombre = models.CharField(max_length=20)
+    class Meta:
+        db_table = 'tbTipoServicio'
 
     def __str__(self):
         return self.nombre
 
 class Usuarios(AbstractBaseUser, PermissionsMixin):
     documento = models.IntegerField(primary_key=True)
-    usuNombres = models.CharField(max_length=200, unique=True)
-    usuApellidos = models.CharField(max_length=200)
+    Nombre = models.CharField(max_length=200, unique=True)
+    Apellido = models.CharField(max_length=200)
     email = models.EmailField(max_length=100, null=True, blank=True)
     telefono = models.CharField(max_length=15, null=True, blank=True)
     genero = models.CharField(max_length=20, null=True, blank=True)
     estado = models.CharField(max_length=20, null=True, blank=True)
-    usuContraseña = models.CharField(max_length=200)
-    id_tipo = models.ForeignKey(TipoUsuario, on_delete=models.SET_NULL, null=True, blank=True)
+    Contraseña = models.CharField(max_length=200)
+    tipo = models.ForeignKey(TipoUsuario, on_delete=models.SET_NULL, null=True, blank=True)
     foto = models.ImageField(upload_to='usuario_imagenes/', null=True, blank=True)
     
     USERNAME_FIELD = 'documento'
     REQUIRED_FIELDS = ['Nombre'] 
+
+    class Meta:
+        db_table = 'tbUsuarios'
 
     def __str__(self):
         return str(self.documento)
@@ -58,6 +69,9 @@ class Habitacion(models.Model):
     tipo = models.ForeignKey(TipoHabitacion, on_delete=models.SET_NULL, null=True)
     imagen = models.ImageField(upload_to='habitacion_imagenes/', null=True, blank=True)
 
+    class Meta:
+        db_table = 'tbHabitacion'
+
     def __str__(self):
         return f'Habitación {self.numero}'
         self.fields['costo_base'].initial = 0.0
@@ -70,6 +84,9 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=255, null=True)
     id_tipo = models.ForeignKey(TipoProducto, on_delete=models.SET_NULL, null=True)
 
+    class Meta:
+        db_table = 'tbProducto'
+
     def __str__(self):
         return self.nombre  
 
@@ -78,6 +95,9 @@ class Servicio(models.Model):
     descripcion = models.CharField(max_length=100)
     costo = models.DecimalField(max_digits=10, decimal_places=2)
     id_tipo = models.ForeignKey(TipoServicio, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'tbServicio'
 
     def __str__(self):
         return self.nombre
@@ -93,5 +113,71 @@ class Reserva(models.Model):
     nro_habitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE)
     comentarios = models.CharField(max_length=300, null=True)
 
+    class Meta:
+        db_table = 'tbReserva'
+
     def __str__(self):
         return f"Reserva {self.id}"
+    
+class Consumos(models.Model):
+    Id = models.AutoField(primary_key=True)
+    ID_Reserva = models.ForeignKey('Reserva', on_delete=models.CASCADE, null=True)
+    ID_Servicio = models.ForeignKey('Servicio', on_delete=models.CASCADE, null=True)
+    ID_Producto = models.ForeignKey('Producto', on_delete=models.CASCADE, null=True)
+    Cantidad = models.IntegerField(null=True)
+    Total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    Facturado = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'tbConsumos'
+
+    def __str__(self):
+        return f"Consumos {self.Id}"
+
+class Factura(models.Model):
+    Id = models.AutoField(primary_key=True)
+    Fecha = models.DateField(null=True)
+    Total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    ID_Consumo = models.ForeignKey('Consumos', on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        db_table = 'tbFactura'
+
+class Reserva_Respaldo(models.Model):
+    Id = models.AutoField(primary_key=True)
+    Documento = models.IntegerField(null=True)
+    Estado = models.CharField(max_length=20, null=True)
+    CantidadAdultos = models.IntegerField(null=True)
+    CantidadNiños = models.IntegerField(null=True)
+    FechaIngreso = models.DateField(null=True)
+    FechaSalida = models.DateField(null=True)
+    Nro_habitacion = models.IntegerField(null=True)
+    Comentarios = models.CharField(max_length=300, null=True)
+
+    class Meta:
+        db_table = 'tbReserva_Respaldo'
+
+class Factura_Respaldo(models.Model):
+    Id = models.AutoField(primary_key=True)
+    Fecha = models.DateField(null=True)
+    Total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    ID_Consumo = models.IntegerField(null=True)
+
+    class Meta:
+        db_table = 'tbFactura_Respaldo'
+
+class Usuarios_Respaldo(models.Model):
+    Id = models.AutoField(primary_key=True)
+    Documento = models.IntegerField(unique=True)
+    Nombre = models.CharField(max_length=50, null=True)
+    Apellido = models.CharField(max_length=50, null=True)
+    Email = models.EmailField(max_length=100, null=True)
+    Telefono = models.CharField(max_length=15, null=True)
+    Genero = models.CharField(max_length=20, null=True)
+    Estado = models.CharField(max_length=20, null=True)
+    Contraseña = models.CharField(max_length=255, null=True)
+    Id_tipo = models.IntegerField(null=True)
+    Fecha_Respaldo = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'tbUsuarios_Respaldo'

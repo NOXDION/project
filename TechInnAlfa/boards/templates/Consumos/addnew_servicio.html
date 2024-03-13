@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}AGREGAR Servicio{% endblock title %}
+
+{% block content %}
+<div class="col-md-12">
+    <form method="POST" class="post-form" action="/addnew_servicio/">
+        {% csrf_token %}
+        <div class="container">
+            <div class="col-12">
+                <h3>Enter Details</h3>
+            </div>
+            <div class="mb-3">
+                <label>ID:</label>
+                {{ form.id }}
+            </div>
+            <div class="mb-3">
+                <label>Nombre:</label>
+                {{ form.nombre }}
+            </div>
+            <div class="mb-3">
+                <label>Descripcion:</label>
+                {{ form.descripcion }}
+            </div>
+            <div class="mb-3">
+                <label>Costo:</label>
+                {{ form.costo }}
+            </div>
+            <div class="mb-3">
+                <label>ID Tipo:</label>
+                {{ form.id_tipo }}
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

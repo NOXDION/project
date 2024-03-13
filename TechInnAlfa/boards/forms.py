@@ -6,17 +6,17 @@ from django.contrib.auth.forms import AuthenticationForm
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuarios
-        fields = ['documento', 'usuNombres', 'usuApellidos', 'email', 'telefono', 'genero', 'estado', 'usuContraseña', 'id_tipo', 'foto']
+        fields = ['documento', 'Nombre', 'Apellido', 'email', 'telefono', 'genero', 'estado', 'Contraseña', 'tipo', 'foto']
         widgets = {
             'documento': forms.TextInput(attrs={'class': 'form-control'}),
-            'usuNombres': forms.TextInput(attrs={'class': 'form-control'}),
-            'usuApellidos': forms.TextInput(attrs={'class': 'form-control'}),
+            'Nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'Apellido': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control'}),
             'genero': forms.TextInput(attrs={'class': 'form-control'}),
             'estado': forms.TextInput(attrs={'class': 'form-control'}),
-            'usuContraseña': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'id_tipo': forms.Select(attrs={'class': 'form-control'}),
+            'Contraseña': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'tipo': forms.Select(attrs={'class': 'form-control'}),
             'foto': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
@@ -113,5 +113,5 @@ class TipoServicioForm(forms.ModelForm):
         }
 
 class CustomAuthenticationForm(forms.Form):
-    usuNombres = forms.CharField(label='Usuario')
-    usuContraseña = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
+    Nombre = forms.CharField(label='Usuario')
+    Contraseña = forms.CharField(label='Contraseña', widget=forms.PasswordInput)

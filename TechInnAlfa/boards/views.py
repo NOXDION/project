@@ -1,6 +1,6 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from boards.forms import *
-from boards.models import Usuarios, Habitacion, TipoHabitacion, Producto, TipoUsuario, Reserva, TipoProducto
+from boards.models import *
 from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
@@ -20,9 +20,9 @@ def addnew_usuario(request):
         if form.is_valid():
             try:
                 user = form.save(commit=False)
-                user.usuContraseña = make_password(form.cleaned_data['usuContraseña'])
+                user.Contraseña = make_password(form.cleaned_data['Contraseña'])
                 user.save()
-                return redirect('/signin')
+                return redirect('/crud_usuario')
             except:
                 pass
     else:
@@ -68,7 +68,7 @@ def signup(request):
         if form.is_valid():
             try:
                 user = form.save(commit=False)
-                user.usuContraseña = make_password(form.cleaned_data['usuContraseña'])
+                user.Contraseña = make_password(form.cleaned_data['Contraseña'])
                 user.save()
                 login(request, user)
                 return redirect('/')
@@ -88,14 +88,14 @@ def signin(request):
         form = CustomAuthenticationForm(request.POST)
         
         if form.is_valid():
-            username = form.cleaned_data['usuNombres']
-            password = form.cleaned_data['usuContraseña']
+            username = form.cleaned_data['Nombre']
+            password = form.cleaned_data['Contraseña']
 
             try:
-                user = Usuarios.objects.get(usuNombres=username)
-                if check_password(password, user.usuContraseña):
+                user = Usuarios.objects.get(Nombre=username)
+                if check_password(password, user.Contraseña):
                     login(request, user)
-                    if user.is_superuser or user.id_tipo == 101:
+                    if user.is_superuser or user.tipo == 101:
                         return redirect('/crud_usuario')
                     else:
                         return redirect('/habitaciones_disponibles/?documento={}'.format(user.documento))   
@@ -474,3 +474,48 @@ def reservas_x_usuario(request, documento):
     reservas_usuario = Reserva.objects.filter(documento=usuario)
 
     return render(request, 'Usuarios/reservas_x_usuario.html', {'usuario': usuario, 'reservas_usuario': reservas_usuario})
+
+
+#crud Consumos 
+def crud_producto(request):
+    producto = Producto.objects.all()
+    return render(request, 'Productos/show_producto.html', {'producto': producto})
+
+def addnew_producto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST)
+        if form.is_valid():
+            try:
+                pro = form.save(commit=False)
+                pro.save()
+                return redirect('/crud_producto')
+            except:
+                pass
+    else:
+        form = ProductoForm()
+    return render(request, 'Productos/addnew_producto.html', {'form': form})
+
+def edit_producto(request, id):
+    producto = Producto.objects.get(id=id)
+    form = ProductoForm(instance=producto)
+    return render(request, 'Productos/edit_producto.html', {'form': form, 'producto': producto})    
+
+def update_producto(request, id):
+    producto = Producto.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('/crud_producto')
+        else:
+            print(form.errors)
+    else:
+        form = ProductoForm(instance=producto)
+
+    return render(request, 'Productos/edit_producto.html', {'form': form, 'producto': producto})
+
+def destroy_producto(request, id):
+    producto = Producto.objects.get(id=id)
+    producto.delete()
+    return redirect('/crud_producto')

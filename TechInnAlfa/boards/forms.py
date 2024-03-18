@@ -79,10 +79,27 @@ class ReservaForm(forms.ModelForm):
         self.fields['documento'].queryset = Usuarios.objects.all()
         self.fields['nro_habitacion'].queryset = Habitacion.objects.all()
 
+class ConsumosForm(forms.ModelForm):
+    class Meta:
+        model = Consumos
+        fields = ['id_Reserva', 'id_Servicio', 'cantidad_s', 'id_Producto', 'cantidad_p', 'total', 'facturado']
+        widgets = {
+            'id_Reserva': forms.Select(attrs={'class': 'form-control'}),
+            'id_Servicio': forms.Select(attrs={'class': 'form-control'}),
+            'cantidad_s': forms.NumberInput(attrs={'class': 'form-control'}),
+            'id_Producto': forms.Select(attrs={'class': 'form-control'}),
+            'cantidad_p': forms.NumberInput(attrs={'class': 'form-control'}),
+            'total': forms.NumberInput(attrs={'class': 'form-control'}),
+            'facturado': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ConsumosForm, self).__init__(*args, **kwargs)
+
 class TipoHabitacionForm(forms.ModelForm):
     class Meta:
         model = TipoHabitacion
-        fields = ['id', 'tipo'] 
+        fields = ['id', 'tipo']
         widgets = {
             'id': forms.TextInput(attrs={'class': 'form-control'}),
             'tipo': forms.TextInput(attrs={'class': 'form-control'}),}

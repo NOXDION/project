@@ -120,13 +120,14 @@ class Reserva(models.Model):
         return f"Reserva {self.id}"
     
 class Consumos(models.Model):
-    Id = models.AutoField(primary_key=True)
-    ID_Reserva = models.ForeignKey('Reserva', on_delete=models.CASCADE, null=True)
-    ID_Servicio = models.ForeignKey('Servicio', on_delete=models.CASCADE, null=True)
-    ID_Producto = models.ForeignKey('Producto', on_delete=models.CASCADE, null=True)
-    Cantidad = models.IntegerField(null=True)
-    Total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    Facturado = models.BooleanField(default=False)
+    id = models.AutoField(primary_key=True)
+    id_Reserva = models.ForeignKey('Reserva', on_delete=models.CASCADE, null=True)
+    id_Servicio = models.ForeignKey('Servicio', on_delete=models.CASCADE, null=True)
+    cantidad_s = models.IntegerField(null=True)
+    id_Producto = models.ForeignKey('Producto', on_delete=models.CASCADE, null=True)
+    cantidad_p = models.IntegerField(null=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    facturado = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'tbConsumos'
@@ -138,7 +139,7 @@ class Factura(models.Model):
     Id = models.AutoField(primary_key=True)
     Fecha = models.DateField(null=True)
     Total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    ID_Consumo = models.ForeignKey('Consumos', on_delete=models.SET_NULL, null=True)
+    id_Reserva = models.ForeignKey('Reserva', on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = 'tbFactura'

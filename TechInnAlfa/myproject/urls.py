@@ -41,6 +41,12 @@ urlpatterns = [
     path('update_reserva/<int:id>/', views.update_reserva, name='update_reserva'),
     path('delete_reserva/<int:id>/', views.destroy_reserva, name='destroy_reserva'),
     path('confirmacion_reserva/', views.confirmacion_reserva, name='confirmacion_reserva'),
+#Consumos
+    path('crud_consumo/', views.crud_consumos, name='crud_consumos'),
+    path('addnew_consumo/', views.addnew_consumo, name='addnew_consumo'),
+    path('edit_consumo/<int:id>/', views.edit_consumo, name='edit_consumo'),
+    path('update_consumo/<int:id>/', views.update_consumo, name='update_consumo'),
+    path('delete_consumo/<int:id>/', views.destroy_consumo, name='delete_consumo'),
 #tipo habitacion
     path('crud_tipohabitacion', views.crud_tipohabitacion, name='crud_tipohabitacion'),
     path('addnew_tipohabitacion', views.addnew_tipohabitacion, name='addnew_tipohabitacion'),
@@ -69,6 +75,8 @@ urlpatterns = [
     path('signup', views.signup, name='signup'),
     path('signin/', views.signin, name='signin'),
     path('signout/', views.signout, name='signout'),
+#Facturas
+    path('crud_factura/', views.crud_factura, name='crud_factura'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

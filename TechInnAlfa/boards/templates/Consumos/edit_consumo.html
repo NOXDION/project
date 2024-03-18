@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}EDITAR Consumo{% endblock title %}
+
+{% block content %}
+<div class="col-md-12">
+    <form method="POST" class="post-form" action="/update_consumo/{{ consumo.id }}/ ">
+        {% csrf_token %}
+        <div class="container">
+            <div class="col-12">
+                <h3>Actualizar Detalles</h3>
+            </div>
+            <div class="mb-3">
+                <label>ID Reserva:</label>
+                {{ form.id_Reserva }}
+            </div>
+            <div class="mb-3">
+                <label>ID Servicio:</label>
+                {{ form.id_Servicio }}
+            </div>
+            <div class="mb-3">
+                <label>Cantidad de servicios:</label>
+                {{ form.cantidad_s }}
+            </div>
+            <div class="mb-3">
+                <label>ID Producto:</label>
+                {{ form.id_Producto }}
+            </div>
+            <div class="mb-3">
+                <label>Cantidad de productos:</label>
+                {{ form.cantidad_p }}
+            </div>
+            <div class="mb-3">
+                <label>Total:</label>
+                {{ form.total }}
+            </div>
+            <div class="mb-3">
+                <label>Facturado:</label>
+                {{ form.facturado }}
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success btn-lg">Actualizar</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

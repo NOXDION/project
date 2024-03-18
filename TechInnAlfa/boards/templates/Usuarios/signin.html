@@ -10,7 +10,7 @@
   <title>HOTEL - Inicio de Sesión y Registro</title>
 </head>
 <body>
-  <!-- Formulario de Ingreso -->
+
   <section class="section__container login__container">
 
     {% if messages %}
@@ -23,7 +23,7 @@
         </div>
     {% endif %}
 
-    <form action="#" class="login__form" method="post" action="{% url 'signin' %}">
+    <form class="login__form" method="post" action="{% url 'signin' %}">
 
         {% csrf_token %}
 
@@ -45,6 +45,9 @@
       </div>
       <div class="input__group input__btn">
         <button class="btn" type="submit">Iniciar Sesión</button>
+      </div>
+      <div class="input__group input__btn">
+        <a href="/#" class="btn btn-primary">¿Olvido su contraseña?</a>
       </div>
     </form>
   </section>

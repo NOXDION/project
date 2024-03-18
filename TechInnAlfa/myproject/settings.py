@@ -71,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -82,7 +81,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '3307',#3306 pc de casa y 3307 pc del sena
+        'PORT': '3306',#3306 pc de casa y 3307 pc del sena
     }
 }
 
@@ -131,3 +130,4 @@ STATIC_URL = 'static/'
 AUTH_USER_MODEL = 'boards.Usuarios'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+LOGIN_URL = '/signin'

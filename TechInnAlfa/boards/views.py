@@ -517,6 +517,8 @@ def crud_reserva(request):
 @never_cache
 @login_required
 def addnew_reserva(request):
+    usuarios = Usuarios.objects.all()
+    habitaciones = Habitacion.objects.all()
     if request.method == 'POST':
         form = ReservaForm(request.POST)
         if form.is_valid():
@@ -528,14 +530,16 @@ def addnew_reserva(request):
                 pass
     else:
         form = ReservaForm()
-    return render(request, 'Reservas/addnew_reserva.html', {'form': form})
+    return render(request, 'Reservas/addnew_reserva.html', {'form': form, 'usuarios': usuarios, 'habitaciones': habitaciones})
 
 @never_cache
 @login_required
 def edit_reserva(request, id):
+    usuarios = Usuarios.objects.all()
+    habitacion = Habitacion.objects.all()
     reserva = Reserva.objects.get(id=id)
     form = ReservaForm(instance=reserva)
-    return render(request, 'Reservas/edit_reserva.html', {'form': form, 'reserva': reserva})    
+    return render(request, 'Reservas/edit_reserva.html', {'form': form, 'reserva': reserva, 'usuarios': usuarios, 'habitacion': habitacion})    
 
 @never_cache
 @login_required

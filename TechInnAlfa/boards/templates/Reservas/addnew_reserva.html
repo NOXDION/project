@@ -8,13 +8,55 @@
         {% csrf_token %}
         <div class="container">
             <div class="col-12">
-            <h3>Ingrese los Detalles</h3>
+                <h3>Update Details</h3>
             </div>
-            {{ form.as_p }}
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <label for="id_documento">Documento:</label>
+                <select name="documento" class="form-control" id="id_documento">
+                    {% for usuario in usuarios %}
+                        <option value="{{ usuario.documento }}">{{ usuario.documento }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="id_estado">Estado:</label>
+                <select name="estado" class="form-control" id="id_estado">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Completada">Completada</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="id_cantidad_adultos">Cantidad de Adultos:</label>
+                <input type="number" name="cantidad_adultos" class="form-control" id="id_cantidad_adultos">
+            </div>
+            <div class="mb-3">
+                <label for="id_cantidad_niños">Cantidad de Niños:</label>
+                <input type="number" name="cantidad_niños" class="form-control" id="id_cantidad_niños">
+            </div>
+            <div class="mb-3">
+                <label for="id_fecha_ingreso">Fecha de Ingreso:</label>
+                <input type="date" name="fecha_ingreso" class="form-control" id="id_fecha_ingreso">
+            </div>
+            <div class="mb-3">
+                <label for="id_fecha_salida">Fecha de Salida:</label>
+                <input type="date" name="fecha_salida" class="form-control" id="id_fecha_salida">
+            </div>
+            <div class="mb-3">
+                <label for="id_nro_habitacion">Número de Habitación:</label>
+                <select name="nro_habitacion" class="form-control" id="id_nro_habitacion">
+                    {% for habitacion in habitaciones %}
+                        <option value="{{ habitacion.numero }}">{{ habitacion.numero }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="id_comentarios">Comentarios:</label>
+                <textarea name="comentarios" class="form-control" id="id_comentarios"></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success btn-lg">Update</button>
             </div>
         </div>
-    </form>
+    </form> 
 </div>
 {% endblock content %}

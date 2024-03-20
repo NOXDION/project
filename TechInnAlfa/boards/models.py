@@ -45,7 +45,7 @@ class Usuarios(AbstractBaseUser, PermissionsMixin):
     estado = models.CharField(max_length=20, null=True, blank=True, default='Activo')
     Contraseña = models.CharField(max_length=200)
     tipo = models.ForeignKey(TipoUsuario, on_delete=models.SET_NULL, null=True, blank=True, default='105')
-    foto = models.ImageField(upload_to='usuario_imagenes/', null=True, blank=True)
+    foto = models.ImageField(upload_to='usuario_imagenes/', null=True, blank=True, default='usuario_imagenes/default.png')
     
     USERNAME_FIELD = 'documento'
     REQUIRED_FIELDS = ['Nombre'] 

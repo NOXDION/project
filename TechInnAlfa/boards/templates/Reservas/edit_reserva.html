@@ -10,7 +10,49 @@
             <div class="col-12">
                 <h3>Update Details</h3>
             </div>
-            {{ form.as_p }}
+            <div class="mb-3">
+                <label for="id_documento">Documento:</label>
+                <select name="documento" class="form-control" id="id_documento">
+                    {% for usuario in usuarios %}
+                        <option value="{{ reserva.documento }}" {% if usuario == reserva.documento %} selected {% endif %}>{{ usuario.documento }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="id_estado">Estado:</label>
+                <select name="estado" class="form-control" id="id_estado">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Completada">Completada</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="id_cantidad_adultos">Cantidad de Adultos:</label>
+                <input type="number" name="cantidad_adultos" class="form-control" id="id_cantidad_adultos" value="{{ reserva.cantidad_adultos }}">
+            </div>
+            <div class="mb-3">
+                <label for="id_cantidad_niños">Cantidad de Niños:</label>
+                <input type="number" name="cantidad_niños" class="form-control" id="id_cantidad_niños" value="{{ reserva.cantidad_niños }}">
+            </div>
+            <div class="mb-3">
+                <label for="id_fecha_ingreso">Fecha de Ingreso:</label>
+                <input type="date" name="fecha_ingreso" class="form-control" id="id_fecha_ingreso" value="{{ reserva.fecha_ingreso|date:'Y-m-d' }}">
+            </div>
+            <div class="mb-3">
+                <label for="id_fecha_salida">Fecha de Salida:</label>
+                <input type="date" name="fecha_salida" class="form-control" id="id_fecha_salida" value="{{ reserva.fecha_salida|date:'Y-m-d' }}">
+            </div>
+            <div class="mb-3">
+                <label for="id_nro_habitacion">Número de Habitación:</label>
+                <select name="nro_habitacion" class="form-control" id="id_nro_habitacion">
+                    {% for habitacion in habitacion %}
+                        <option value="{{ habitacion.numero }}" {% if habitacion == reserva.nro_habitacion %} selected {% endif %}>{{ habitacion.numero }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="id_comentarios">Comentarios:</label>
+                <textarea name="comentarios" class="form-control" id="id_comentarios">{{ reserva.comentarios }}</textarea>
+            </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-success btn-lg">Update</button>
             </div>

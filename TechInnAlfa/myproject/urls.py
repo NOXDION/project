@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from boards import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,6 +12,7 @@ urlpatterns = [
     path('crud_usuario', views.crud_usuario, name='crud_usuario'),
     path('addnew_usuario', views.addnew_usuario, name='addnew_usuario'),
     path('edit_usuario/<int:documento>', views.edit_usuario, name='edit_usuario'),
+    path('profile_edit_usuario/<int:documento>', views.profile_edit_usuario, name='profile_edit_usuario'),
     path('update_usuario/<int:documento>', views.update_usuario, name='update_usuario'),
     path('delete_usuario/<int:documento>', views.destroy_usuario, name='destroy_usuario'),
     path('reservas_x_usuario/<int:documento>/', views.reservas_x_usuario, name='reservas_x_usuario'),
@@ -75,6 +77,18 @@ urlpatterns = [
     path('signup', views.signup, name='signup'),
     path('signin/', views.signin, name='signin'),
     path('signout/', views.signout, name='signout'),
+    
+#profile
+    path('profile/', views.profile, name='profile'),
+    
+#ResetPassword
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="autenticacion/password-reset.html"), name='password_reset'),
+    path('reset_password_send/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name="autenticacion/password-confirm.html"), name='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+
+
 #Facturas
     path('crud_factura/', views.crud_factura, name='crud_factura'),
 ]

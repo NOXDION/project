@@ -52,6 +52,20 @@ def edit_usuario(request, documento):
 
 @never_cache
 @login_required
+def profile_edit_usuario(request, documento):
+    usuario = Usuarios.objects.get(documento=documento)
+    tipos_usuarios = TipoUsuario.objects.all()
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile')
+    else:
+        form = UsuarioForm(instance=usuario)
+    return render(request, 'Usuarios/profile_edit_usuario.html', {'form': form, 'usuario': usuario, 'tipos_usuarios': tipos_usuarios})
+
+@never_cache
+@login_required
 def update_usuario(request, documento):
     usuario = Usuarios.objects.get(documento=documento)
     tipos_usuarios = TipoUsuario.objects.all()
@@ -83,6 +97,7 @@ def signup(request):
                 user.Contraseña = make_password(form.cleaned_data['Contraseña'])
                 user.save()
                 login(request, user)
+                # messages.success(request, '¡Usuario registrado exitosamente!')
                 return redirect('/')
             except Exception as e:
                 print(f"Error al registrar usuario: {e}")
@@ -638,3 +653,10 @@ def crud_factura(request):
     facturas = Factura.objects.all()
     return render(request, 'Facturas/show_factura.html', {'facturas': facturas})
 
+#perfil del usuario
+@never_cache
+@login_required
+def profile(request):
+    user = request.user
+    reservas = Reserva.objects.filter(documento=user)
+    return render(request, 'Usuarios/profile.html', {'user': user, 'reservas': reservas})

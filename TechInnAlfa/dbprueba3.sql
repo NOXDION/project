@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-03-2024 a las 00:45:47
+-- Tiempo de generación: 20-03-2024 a las 01:05:04
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -239,7 +239,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (26, 'boards', '0009_rename_cantidad_consumos_cantidad_and_more', '2024-03-17 23:14:12.411464'),
 (27, 'boards', '0010_rename_cantidad_consumos_cantidad_p_and_more', '2024-03-17 23:14:12.440347'),
 (28, 'boards', '0011_remove_factura_id_consumo_factura_id_reserva', '2024-03-17 23:14:12.649151'),
-(29, 'sessions', '0001_initial', '2024-03-17 23:14:12.677502');
+(29, 'sessions', '0001_initial', '2024-03-17 23:14:12.677502'),
+(30, 'boards', '0012_alter_usuarios_estado_alter_usuarios_tipo', '2024-03-20 00:02:52.721462');
 
 -- --------------------------------------------------------
 
@@ -259,6 +260,7 @@ CREATE TABLE `django_session` (
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('kiskxknusc32g8toku2rovl1uhy7j8eh', '.eJxVjDsOwjAQBe_iGln-e0NJnzNEG-8aB5AjxUmFuDuJlALaN_PmLQbc1jJsjZdhInEV2lgnLr_ziOnJ9WD0wHqfZZrrukyjPBR50ib7mfh1O92_QMFW9jf7iAmyjTqRyXFkRY4AVebMFlOyXYyeSO_F4K0NvlMExinIwQADiM8Xgrw5Dg:1rmF1H:3oz355KN1ipVqTImr-H-SoxWUAIjGryzlewetmDCHGw', '2024-04-01 15:35:23.128976'),
+('vid0es0a22l0dl8k04768xnu3bygzj7m', '.eJxVjDsOgzAMQO-SuYpCnMSmY3fOgEzsFNoKJD5T1bsXJIZ2fp-3aXlb-3ZbdG4HMVdTOfAJMUAwl1_YcX7qeBjy4PE-2TyN6zx09lDsSRfbTKKv2-n-DXpe-r3WiJypAFZZfMFOnQQhdkWLAucMNWIUqfZjigAp1k7IB0cleVIi8_kCbaI6SQ:1rmjQI:HDZHfLgO9PYWQGXOm3VwOvSWFJlCm8RGuG7hN1mZ5wc', '2024-04-03 00:03:14.044096'),
 ('ydlumdp3ypsz3inb9gwdo61q2kjoduia', '.eJxVjDsOwjAQBe_iGln-e0NJnzNEG-8aB5AjxUmFuDuJlALaN_PmLQbc1jJsjZdhInEV2lgnLr_ziOnJ9WD0wHqfZZrrukyjPBR50ib7mfh1O92_QMFW9jf7iAmyjTqRyXFkRY4AVebMFlOyXYyeSO_F4K0NvlMExinIwQADiM8Xgrw5Dg:1rmF0Q:06vsnURQdPLr-wE978dqXcnkPBQaT1-NGEcdqS7sTDQ', '2024-04-01 15:34:30.052013'),
 ('z0xwdydslm5wus5yhrnc9p0eorlwhlic', '.eJxVjDsOgzAMQO-SuYpCnMSmY3fOgEzsFNoKJD5T1bsXJIZ2fp-3aXlb-3ZbdG4HMVdTOfAJMUAwl1_YcX7qeBjy4PE-2TyN6zx09lDsSRfbTKKv2-n-DXpe-r3WiJypAFZZfMFOnQQhdkWLAucMNWIUqfZjigAp1k7IB0cleVIi8_kCbaI6SQ:1rmEBJ:VTQcg0Nm_7k4nV708odmB4EyKcH8NVdvYqW4vDNOQ44', '2024-04-01 14:41:41.933478');
 
@@ -665,8 +667,8 @@ CREATE TABLE `tbusuarios` (
 INSERT INTO `tbusuarios` (`password`, `last_login`, `is_superuser`, `documento`, `Nombre`, `Apellido`, `email`, `telefono`, `genero`, `estado`, `Contraseña`, `foto`, `tipo_id`) VALUES
 ('', '2024-03-18 16:07:09.084937', 0, 1234, 'james', 'james', 'james@hotmail.com', '123', 'james', 'james', 'pbkdf2_sha256$600000$piuaLi7zp85IxaUhLinDYY$fHdlktj8LztCRRrRcIrmYqMx88o6EZOkRDYuw0T7Hmw=', 'usuario_imagenes/foto.webp', 101),
 ('', '2024-03-18 13:59:00.880478', 1, 123456, 'jjames', 'james', 'james@hotmail.com', '3052829469', 'masculino', 'Activo', 'pbkdf2_sha256$600000$nFSFuIhSLZ3qxBoUBJDzR8$CCw8w8feMci+qzRcbFK2kjlJeP9LG2Ev6eKs0ivbDZw=', 'usuario_imagenes/foto_i3diwp4.webp', 102),
-('', '2024-03-18 23:41:21.788988', 1, 8100516, 'Diego', 'Salamanca', 'Diego@hotmail.com', '305281981', 'Masculino', 'Activo', 'pbkdf2_sha256$600000$vPqoSA97IAXO2ktTxGOH1h$yiZ6dJRB3qSPxoopHOg2jI9yEvp+D258K/dNo7Ms72Y=', 'usuario_imagenes/foto_4YzRK2I.webp', 105),
-('', '2024-03-18 23:37:11.383850', 1, 1032677434, 'Alejandro', 'Melendez', 'jamesalejandromelendez@hotmail.com', '3052829469', 'Masculino', 'Activo', 'pbkdf2_sha256$600000$JkXSiWpE91X8xKBOGllfJ9$PtJJOVLAqVxEZXHLH2+upyWBMMkZMhl/iM6JTXe9POA=', 'usuario_imagenes/foto_B9dUA15.webp', 105);
+('', '2024-03-19 02:10:46.951999', 0, 8100516, 'Diego', 'Salamanca', 'Diego@hotmail.com', '305281981', 'Masculi', 'Activo', 'pbkdf2_sha256$600000$vPqoSA97IAXO2ktTxGOH1h$yiZ6dJRB3qSPxoopHOg2jI9yEvp+D258K/dNo7Ms72Y=', 'usuario_imagenes/foto_4YzRK2I.webp', 105),
+('', '2024-03-20 00:03:14.040109', 1, 1032677434, 'Alejandro', 'Melendez', 'jamesalejandromelendez@hotmail.com', '3052829469', 'Masculino', 'Activo', 'pbkdf2_sha256$600000$JkXSiWpE91X8xKBOGllfJ9$PtJJOVLAqVxEZXHLH2+upyWBMMkZMhl/iM6JTXe9POA=', 'usuario_imagenes/foto_B9dUA15.webp', 105);
 
 -- --------------------------------------------------------
 
@@ -916,7 +918,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `tbconsumos`

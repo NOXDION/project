@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-03-2024 a las 01:05:04
+-- Tiempo de generación: 20-03-2024 a las 01:17:28
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -383,6 +383,25 @@ INSERT INTO `tbfactura` (`Id`, `Fecha`, `Total`, `id_Reserva_id`) VALUES
 (3, '2024-03-17', 150.00, 8),
 (4, '2024-03-18', 185.00, 9);
 
+--
+-- Disparadores `tbfactura`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_respaldo_factura` BEFORE DELETE ON `tbfactura` FOR EACH ROW BEGIN
+    DECLARE fecha_factura DATE;
+    DECLARE fecha_actual DATE;
+
+    SELECT Fecha INTO fecha_factura FROM tbFactura WHERE Id = OLD.Id;
+
+    SET fecha_actual = CURDATE();
+    IF DATEDIFF(fecha_actual, fecha_factura) > 90 THEN
+        INSERT INTO tbFactura_Respaldo (Id, Fecha, Total, ID_Consumo)
+        VALUES (OLD.Id, OLD.Fecha, OLD.Total, OLD.Id);
+    END IF;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -509,6 +528,20 @@ CREATE TRIGGER `generar_factura` AFTER INSERT ON `tbreserva` FOR EACH ROW BEGIN
     -- Inserta la nueva factura
     INSERT INTO tbfactura (Fecha, Total, id_Reserva_id)
     VALUES (NOW(), total_factura, NEW.id);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tr_respaldo_reserva` BEFORE DELETE ON `tbreserva` FOR EACH ROW BEGIN
+    DECLARE fecha_actual DATE;
+    DECLARE fecha_ingreso_reserva DATE;
+    
+    SET fecha_actual = CURDATE();
+    
+    SELECT fecha_ingreso INTO fecha_ingreso_reserva FROM tbReserva WHERE Id = OLD.Id;
+    
+    INSERT INTO tbReserva_Respaldo (Id, Documento, Estado, CantidadAdultos, CantidadNiños, FechaIngreso, FechaSalida, Nro_habitacion, Comentarios)
+    VALUES (OLD.Id, OLD.documento_id, OLD.estado, OLD.cantidad_adultos, OLD.cantidad_niños, OLD.fecha_ingreso, OLD.fecha_salida, OLD.Nro_habitacion_id, OLD.Comentarios);
 END
 $$
 DELIMITER ;
@@ -669,6 +702,26 @@ INSERT INTO `tbusuarios` (`password`, `last_login`, `is_superuser`, `documento`,
 ('', '2024-03-18 13:59:00.880478', 1, 123456, 'jjames', 'james', 'james@hotmail.com', '3052829469', 'masculino', 'Activo', 'pbkdf2_sha256$600000$nFSFuIhSLZ3qxBoUBJDzR8$CCw8w8feMci+qzRcbFK2kjlJeP9LG2Ev6eKs0ivbDZw=', 'usuario_imagenes/foto_i3diwp4.webp', 102),
 ('', '2024-03-19 02:10:46.951999', 0, 8100516, 'Diego', 'Salamanca', 'Diego@hotmail.com', '305281981', 'Masculi', 'Activo', 'pbkdf2_sha256$600000$vPqoSA97IAXO2ktTxGOH1h$yiZ6dJRB3qSPxoopHOg2jI9yEvp+D258K/dNo7Ms72Y=', 'usuario_imagenes/foto_4YzRK2I.webp', 105),
 ('', '2024-03-20 00:03:14.040109', 1, 1032677434, 'Alejandro', 'Melendez', 'jamesalejandromelendez@hotmail.com', '3052829469', 'Masculino', 'Activo', 'pbkdf2_sha256$600000$JkXSiWpE91X8xKBOGllfJ9$PtJJOVLAqVxEZXHLH2+upyWBMMkZMhl/iM6JTXe9POA=', 'usuario_imagenes/foto_B9dUA15.webp', 105);
+
+--
+-- Disparadores `tbusuarios`
+--
+DELIMITER $$
+CREATE TRIGGER `respaldo_usuario` AFTER INSERT ON `tbusuarios` FOR EACH ROW BEGIN
+    DECLARE documento_count INT; 
+    SELECT COUNT(*) INTO documento_count FROM tbUsuarios_Respaldo WHERE Documento = NEW.Documento;
+    
+    IF documento_count > 0 THEN UPDATE tbUsuarios_Respaldo 
+        SET Nombre = NEW.Nombre, Apellido = NEW.Apellido, Email = NEW.Email, 
+            Telefono = NEW.Telefono, Genero = NEW.Genero, Estado = NEW.Estado, 
+            Contraseña = NEW.Contraseña, Id_tipo = NEW.tipo_id, Fecha_Respaldo = CURRENT_TIMESTAMP WHERE Documento = NEW.Documento;
+    ELSE
+        INSERT INTO tbUsuarios_Respaldo (Documento, Nombre, Apellido, Email, Telefono, Genero, Estado, Contraseña, Id_tipo, Fecha_Respaldo)
+        VALUES (NEW.Documento, NEW.Nombre, NEW.Apellido, NEW.Email, NEW.Telefono, NEW.Genero, NEW.Estado, NEW.Contraseña, NEW.tipo_id, CURRENT_TIMESTAMP);
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 

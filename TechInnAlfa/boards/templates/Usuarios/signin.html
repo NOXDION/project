@@ -7,16 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'style.css' %}">
-  <title>HOTEL - Inicio de Sesión y Registro</title>
+  <link rel="stylesheet" href="{% static 'signin.css' %}">
+  <title>HOTEL - Iniciar sesión</title>
 </head>
 
-<header class="p-3" style="background-color: black; padding: 20px;">
-  <a href="/"><button class="btn nav__btn p-4">Volver</button></a>
+<header class="header-s">
+  <a href="/" class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
+  <a href="/signup"><button class="btn nav__btn boton-registro">Registrarse</button></a>
 </header>
 
 <body>
-
-  <section class="section__container register__container">
+  <section class="section__container register__container contenedor">
     {% if messages %}
         <div class="alert alert-danger">
             <ul class="pl-0">
@@ -27,32 +28,32 @@
         </div>
     {% endif %}
 
-    <form class="register__form" method="post" action="{% url 'signin' %}">
+    <form class="register__form formulario" method="post" action="{% url 'signin' %}">
         {% csrf_token %}
         <div class="input__group">
-            <h1 class="text-center mb-4" style="margin-bottom: 20px;">INICIO DE SESIÓN</h1>
+            <h1 class="titulo" style="margin-bottom: 20px;">INICIAR SESIÓN</h1>
         </div>
-          <div class="input__group">
-            <span><i class="ri-mail-line"></i></span>
-            <div>
-                <label>Usuario:</label>
-                <input placeholder="Digite su usuario" type="text" name="Nombre" required maxlength="100" value="" />
-                {{ form.Nombre.errors }}
-            </div>
+        <div class="grupo">
+          <span><i class="ri-user-fill"></i></span>
+          <div>
+              <p>Usuario:</p>
+              <input placeholder="Digite su usuario" type="text" name="Nombre" required maxlength="100" value="" />
+              {{ form.Nombre.errors }}
+          </div>
         </div>
-        <div class="input__group">
-            <span><i class="ri-lock-password-line"></i></span>
-            <div>
-                <label>Contraseña</label>
-                <input placeholder="Digite su contraseña" type="password" name="Contraseña" required maxlength="200" value="" />
-                {{ form.Contraseña.errors }}
-            </div>
+        <div class="grupo">
+          <span><i class="ri-key-fill"></i></span>
+          <div>
+              <p>Contraseña:</p>
+              <input placeholder="Digite su contraseña" type="password" name="Contraseña" required maxlength="200" value="" />
+              {{ form.Contraseña.errors }}
+          </div>
+        </div>
+        <div class="input__group input__btn boton">
+          <button class="btn btn-primary btn-success boton" type="submit" style="margin-top: 20px;">Iniciar Sesión</button>
         </div>
         <div class="input__group input__btn">
-            <button class="btn btn-primary btn-success" type="submit" style="margin-top: 20px;">Iniciar Sesión</button>
-        </div>
-        <div class="input__group input__btn">
-            <a href="/#" class="btn btn-primary" style="margin-top: 20px;">¿Olvidó su contraseña?</a>
+          <a href="/#" class="enlace-2">Olvidó su contraseña?</a>
         </div>
     </form>
 </section>
@@ -66,7 +67,8 @@
       <p class="section__description">
         Algo aquí
       </p>
-      <a href="/"><button class="btn nav__btn p-4">Volver</button></a>
+      <a href="/signup"><button class="btn">Registrarse</button></a>
+      <!-- <a href="/"><button class="btn">Volver</button></a> -->
     </div>
     <div class="footer__col">
       <h4>LINKS DE INTERÉS</h4>

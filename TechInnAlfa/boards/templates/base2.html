@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{% static 'style.css' %}"/>
-    <title>HOTEL</title>
+    <title>HOTEL SENA</title>
   </head>
   <body>
     <header class="header">
@@ -29,17 +29,20 @@
           <li><a href="#service">Servicios</a></li>
           <li><a href="#explore">Explorar</a></li>
           <li><a href="#contact">Contacto</a></li>
+          <li><a href="/signin"><button class="btn nav__btn">Iniciar Sesión</button></a></li>
         </ul>
-        <a href="/signin"><button class="btn nav__btn">Iniciar Sesión</button></a>
-        <a href="/signup"><button class="btn nav__btn">Registrarse</button></a>
+        <div class="logo logo-sistema">
+          <a href="#"><img src="../static/img/logo.png" alt="logo" /></a>
+        </div>
+        <!-- <a href="/signin"><button class="btn nav__btn">Iniciar Sesión</button></a> -->
       </nav>
       <div class="section__container header__container" id="home">
         <p>Simple - Único - Amigable</p>
-        <h1>Siéntete como en casa<br/>Bienvenido a<span> Hotel</span></h1>
+        <h1>Siéntete como en casa<br/>Bienvenido a<span> HOTEL SENA</span></h1>
       </div>
     </header>
 
-    <section class="section__container booking__container">
+    <!-- <section class="section__container booking__container">
       <form action="/" class="booking__form">
         <div class="input__group">
           <span><i class="ri-calendar-2-fill"></i></span>
@@ -66,7 +69,7 @@
           <button class="btn">COMPROBAR</button>
         </div>
       </form>
-    </section>
+    </section> -->
 
     <section class="section__container about__container" id="about">
       <div class="about__image">
@@ -92,7 +95,7 @@
           <div class="room__card__image">
             <img src="../static/img/room-1.jpg" alt="room" />
             <div class="room__card__icons">
-              <span><i class="ri-heart-fill"></i></span>
+              <!-- <span><i class="ri-heart-fill"></i></span> -->
               <!-- <span><i class="ri-paint-fill"></i></span>
               <span><i class="ri-shield-star-line"></i></span> -->
             </div>
@@ -110,7 +113,7 @@
           <div class="room__card__image">
             <img src="../static/img/room-2.jpg" alt="room" />
             <div class="room__card__icons">
-              <span><i class="ri-heart-fill"></i></span>
+              <!-- <span><i class="ri-heart-fill"></i></span> -->
               <!-- <span><i class="ri-paint-fill"></i></span> -->
               <!-- <span><i class="ri-shield-star-line"></i></span> -->
             </div>
@@ -128,7 +131,7 @@
           <div class="room__card__image">
             <img src="../static/img/room-3.jpg" alt="room" />
             <div class="room__card__icons">
-              <span><i class="ri-heart-fill"></i></span>
+              <!-- <span><i class="ri-heart-fill"></i></span> -->
               <!-- <span><i class="ri-paint-fill"></i></span>
               <span><i class="ri-shield-star-line"></i></span> -->
             </div>
@@ -210,7 +213,8 @@
           <p class="section__description">
             Algo aquí
           </p>
-          <button class="btn">Reservar ahora</button>
+          <a href="/signin"><button class="btn">Iniciar Sesión</button></a>
+          <!-- <button class="btn">Reservar ahora</button> -->
         </div>
         <div class="footer__col">
           <h4>LINKS DE INTERÉS</h4>

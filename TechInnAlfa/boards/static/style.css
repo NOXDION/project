@@ -533,6 +533,12 @@ nav {
   }
 }
 
+@media (width < 769px){
+  .logo-sistema{
+    display: none;
+  }
+}
+
 @media (width > 768px) {
   nav {
     padding: 2rem 1rem;

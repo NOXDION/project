@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+/* :root {
+--primary-color: #379237;
+--primary-color-dark: #1A5D1A;
+--text-dark: #0c0a09;
+--text-light: #78716c;
+--white: #ffffff;
+--max-width: 1200px;
+} */
+
+body {
+    /* background-image: url("https://img.freepik.com/vector-gratis/fondo-luminoso-puntos_1055-3132.jpg?t=st=1711566408~exp=1711570008~hmac=c740db549444db531d83c24326c6d1b3edb1c7e9de0478348ac9079edba8de0f&w=740"); */
+    font-family: "Poppins", sans-serif;
+}
+
+.header-s{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #222831;
+    padding: 20px;
+}
+
+.header-s a{
+    text-decoration: none;
+    color: white;
+}
+
+.enlace-1:hover{
+    color: #379237;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    background-color: #379237;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #1A5D1A;
+    color: white;
+}

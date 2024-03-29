@@ -1,3 +1,9 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .header-s{
     display: flex;
     flex-direction: row;
@@ -49,7 +55,7 @@
     background-color: #1A5D1A;
   }
 
-footer{
+  footer{
     margin-top: 30px;
     height: 100%;
     background-color: black;
@@ -63,6 +69,38 @@ footer p{
     text-align: center;
 }
 
+/* MOBILE */
+
+.header-s-2{
+    display: none;
+    background-color: #222831;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+.header-s-2 select {
+    width: 200px; /* Ancho del select */
+    padding: 5px; /* Espacio interno */
+    font-size: 1rem; /* Tamaño de fuente */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Borde redondeado */
+    appearance: none; /* Eliminar los estilos nativos del navegador */
+    background-color: #f7f7f7; /* Color de fondo */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="gray" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Icono de flecha desplegable */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer; /* Cursor al pasar sobre el select */
+}
+.header-s-2 select:hover {
+    background-color: #eaeaea; /* Cambiar color de fondo al pasar sobre el select */
+}
+.header-s-2 select:focus {
+    outline: none; /* Eliminar el contorno al enfocar */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra al enfocar */
+}
+.header-s-2 select option {
+    padding: 10px; /* Espacio interno para las opciones */
+}
+
 @media (width < 1200px) {
     .logo{
         display: none;
@@ -71,21 +109,15 @@ footer p{
         width: 100%;
     }
   }
-
 @media (width < 768px) {
     .boton{
         display: none;
     }
-    .contenedor-nav{
-        width: 100%;
-    }
-}
-
-@media (width < 600px) {
-    .boton{
-        display: block;
-    }
     .header-s{
+        display: none;
         flex-direction: column;
+    }
+    .header-s-2{
+        display: block;
     }
 }

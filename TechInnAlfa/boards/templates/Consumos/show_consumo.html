@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Consumos{% endblock title %}
+{% block title %}CONSUMOS{% endblock title %}
 
 {% block content %}
 <head>
@@ -38,7 +38,7 @@
             <td>{{ consumo.total }}</td>
             <td>{{ consumo.facturado }}</td>
             <td><a href="/edit_consumo/{{ consumo.id }}" class="btn">Editar</a></td>
-            <td><a href="/delete_consumo/{{ consumo.id }}" class="btn btn-red">Eliminar</a></td>
+            <td><a href="/delete_consumo/{{ consumo.id }}" class="btn btn-red">Borrar</a></td>
         </tr>
         {% endfor %}
     </table>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}TIPO HABITACION{% endblock title %}
+{% block title %}PRODUCTOS{% endblock title %}
 
 {% block content %}
 
@@ -18,7 +18,7 @@
     </div>
     <table class="tabla-desktop">
         <tr>
-            <th>Id</th>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Costo</th>
             <th>Stock</th>
@@ -46,7 +46,7 @@
         <div class="fila">
             {% for producto in producto %}
             <div class="columna">
-                <div class="header">Id</div>
+                <div class="header">ID</div>
                 <div class="contenido">{{ producto.id }}</div>
             </div>
             <div class="columna">

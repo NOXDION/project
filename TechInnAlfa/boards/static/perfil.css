@@ -16,7 +16,9 @@
 } */
 
 body {
-    background-image: url("https://img.freepik.com/foto-gratis/fondo-presentacion-corporativa-acento-color_1048-10245.jpg?t=st=1711649998~exp=1711653598~hmac=c47adfe66e47a80743cc8545a312f0456ea9a368e242efabbf229447bf97fddf&w=900");
+    background-image: url("https://img.freepik.com/foto-gratis/resumen-venta-busioness-fondo-banner-diseno-multiproposito_1340-16803.jpg?t=st=1711838145~exp=1711841745~hmac=419cc236f8e47fa71fd6ebc3a9382e229e599341f3e86c26f11b25625e96ac74&w=996");
+    background-size: cover; /* ajusta la imagen al tamaño del contenedor sin repetirla */
+    background-repeat: no-repeat;
     font-family: "Poppins", sans-serif;
 }
 

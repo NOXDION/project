@@ -11,7 +11,102 @@
                 <div class="col-12">
                     <h2 class="text-center mb-4">Ingresar datos de usuario</h2>
                 </div>
-                {{ form.as_p }}
+                <div class="container-superior">
+                    <div class="seccion-1">
+                        <div class="grupo">
+                            <span><i class="ri-pass-valid-fill"></i></span>
+                            <div>
+                                <p>Documento:</p>
+                                <input placeholder="Digite su documento" type="number" class="" name="documento" id="id_documento" required maxlength="20" value="{{ usuario.documento }}"/>
+                            </div>   
+                        </div>
+                        <div class="grupo">
+                            <span><i class="ri-user-fill"></i></span>
+                            <div>
+                                <p>Nombre:</p>
+                                <input placeholder="Digite su nombre" type="text" class="" name="Nombre" id="id_Nombre" required maxlength="100" value="{{ usuario.Nombre }}" />
+                            </div>
+                        </div>
+                        <div class="grupo">
+                            <span><i class="ri-user-fill"></i></span>
+                            <div>
+                                <p>Apellido:</p>
+                                <input placeholder="Digite su apellido" type="text" class="" name="Apellido" id="id_Apellido" required maxlength="100" value="{{ usuario.Apellido }}" />
+                            </div>
+                        </div>
+                        <div class="grupo">
+                            <span><i class="ri-mail-fill"></i></span>
+                            <div>
+                                <p>Email:</p>
+                                <input placeholder="Digite su Email" type="text" class="" name="email" id="id_email" maxlength="100" value="{{ usuario.email }}" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="seccion-2">
+                        <div class="grupo">
+                            <span><i class="ri-smartphone-fill"></i></span>
+                            <div>
+                                <p>Teléfono:</p>
+                                <input placeholder="Digite su Teléfono" type="number" class="" name="telefono" id="id_telefono" maxlength="15" value="{{ usuario.telefono }}" />
+                            </div>
+                        </div>
+                        <div class="grupo">
+                            <span><i class="ri-group-fill"></i></span>
+                            <div>
+                                <p>Género:</p>
+                                <select class="form-select seleccion" name="genero" id="id_genero">
+                                    <option value="" disabled selected>Selecciona una opción</option>
+
+                                    <option value="masculino" {% if usuario.genero == 'masculino' %}selected{% endif %}>Masculino</option>
+                                    <option value="femenino" {% if usuario.genero == 'femenino' %}selected{% endif %}>Femenino</option>
+                                    <option value="otro" {% if usuario.genero == 'otro' %}selected{% endif %}>Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grupo">
+                            <span><i class="ri-key-fill"></i></span>
+                            <div>
+                                <p>Estado:</p>
+                                <select class="form-select seleccion" name="estado" id="estado">
+                                    <option value="" disabled selected>Selecciona una opción</option>
+
+                                    <option value="Activo" {% if usuario.estado == 'Activo' %}selected{% endif %}>Activo</option>
+                                    <option value="Inactivo" {% if usuario.estado == 'Inactivo' %}selected{% endif %}>Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grupo">
+                            <span><i class="ri-key-fill"></i></span>
+                            <div>
+                                <p>Contraseña:</p>
+                                <input placeholder="Digite su contraseña" type="password" class="" name="password" id="id_password" required maxlength="200" value="{{ usuario.password}}" />
+                                <div id="message"></div>
+                            </div>
+                        </div>
+                        <div class="grupo">
+                            <span><i class="ri-key-fill"></i></span>
+                            <div>
+                                <p>Tipo:</p>
+                                <select class="form-control" name="tipo" id="tipo_id" required>
+                                    {% for tipo_usuario in tipos_usuarios %}
+                                        <option value="{{ tipo_usuario.id }}" {% if tipo_usuario.id == usuario.tipo_id.pk %}selected{% endif %}>{{ tipo_usuario.rol }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grupo">
+                            <span><i class="ri-camera-fill"></i></span>
+                            <div>
+                                <p>Foto:</p>
+                                <label for="id_foto" class="input-file-label">
+                                    <span>Elegir archivo</span>
+                                    <input type="file" id="foto" name="foto" class="input-file" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="mb-3 d-grid gap-2">
                     <button type="submit" class="btn btn-success btn-block">Agregar</button>
                 </div>

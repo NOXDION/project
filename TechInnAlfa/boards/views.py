@@ -110,7 +110,7 @@ def signin(request):
                 user = Usuarios.objects.get(Nombre=username)
                 if check_password(password, user.password):
                     login(request, user)
-                    if user.is_superuser or user.tipo == 101:
+                    if user.is_superuser or user.tipo_id == 101:
                         return redirect('/crud_usuario')
                     else:
                         return redirect('/habitaciones_disponibles/?documento={}'.format(user.documento))   

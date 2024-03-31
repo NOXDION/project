@@ -106,7 +106,12 @@
               Descripción
             </p>
             <h5>Precio <span>$40.000 / Noche</span></h5>
-            <a href="/signin"><button class="btn">Ver más</button></a>
+            {% if user.is_authenticated %}
+                <a href="/habitaciones_disponibles/?documento={{ user.documento }}"><button class="btn">Ver más</button></a>
+            {% else %}
+                <!-- Si el usuario no está autenticado, redirigirlo a la página de inicio de sesión -->
+                <a href="/signin"><button class="btn">Iniciar sesión</button></a>
+            {% endif %}
           </div>
         </div>
         <div class="room__card">
@@ -124,7 +129,12 @@
               Descripción
             </p>
             <h5>Precio <span>$80.000 / Noche</span></h5>
-            <a href="/signin"><button class="btn">Ver más</button></a>
+            {% if user.is_authenticated %}
+                <a href="/habitaciones_disponibles/?documento={{ user.documento }}"><button class="btn">Ver más</button></a>
+            {% else %}
+                <!-- Si el usuario no está autenticado, redirigirlo a la página de inicio de sesión -->
+                <a href="/signin"><button class="btn">Iniciar sesión</button></a>
+            {% endif %}
           </div>
         </div>
         <div class="room__card">
@@ -142,7 +152,12 @@
               Descripción
             </p>
             <h5>Precio <span>$120.000 / Noche</span></h5>
-            <a href="/signin"><button class="btn">Ver más</button></a>
+            {% if user.is_authenticated %}
+                <a href="/habitaciones_disponibles/?documento={{ user.documento }}"><button class="btn">Ver más</button></a>
+            {% else %}
+                <!-- Si el usuario no está autenticado, redirigirlo a la página de inicio de sesión -->
+                <a href="/signin"><button class="btn">Iniciar sesión</button></a>
+            {% endif %}
           </div>
         </div>
       </div>

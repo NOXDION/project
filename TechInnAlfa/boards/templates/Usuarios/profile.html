@@ -14,7 +14,11 @@
 <body>
 
     <header class="header-s">
-        <a href="/habitaciones_disponibles" class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
+        {% if user.tipo_id ==  101%}
+            <a href="/crud_usuario" class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
+        {% else %}
+            <a href="/habitaciones_disponibles"  class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
+        {% endif %}
         <a href="/"><button class="btn">Salir</button></a>
     </header>
 
@@ -46,7 +50,7 @@
     
                     <div class="eliminar-cuenta op">
                         <h4 class="">Eliminar</h4>
-                        <a href="{% url 'profile_edit_usuario' documento=user.documento %}"><button class="btn nav__btn boton-registro">Eliminar</button></a>
+                        <a href="{% url 'confirm_delete_usuario' documento=user.documento %}"><button class="btn nav__btn boton-registro">Eliminar</button></a>
                     </div>
                 </div>
                 <div class="ayuda-soporte">

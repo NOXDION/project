@@ -41,11 +41,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="id_Contraseña" class="form-label">Contraseña:</label>
-                    <input type="text" class="form-control" name="Contraseña" id="id_Contraseña" required maxlength="200" value="{{ usuario.Contraseña }}" />
+                    <input type="hidden" name="password" value="{{ usuario.password }}">
                 </div>
                 <div class="mb-3">
                     <label for="tipo" class="form-label">ID Tipo:</label>
-                    <select class="form-control" name="tipo" id="tipo" required>
+                    <select class="form-control" name="tipo" id="tipo_id" required>
                         {% for tipo_usuario in tipos_usuarios %}
                             <option value="{{ tipo_usuario.id }}" {% if tipo_usuario.id == usuario.tipo.pk %}selected{% endif %}>{{ tipo_usuario.rol }}</option>
                         {% endfor %}

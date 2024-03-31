@@ -7,6 +7,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
+from django.http import HttpResponse
 # Create your views here.
 def index(request):
      return render(request,'base2.html')
@@ -21,19 +22,20 @@ def crud_usuario(request):
 @never_cache
 @login_required
 def addnew_usuario(request):
+    tipos_usuarios = TipoUsuario.objects.all()
     if request.method == 'POST':
         form = UsuarioForm(request.POST, request.FILES)
         if form.is_valid():
             try:
                 user = form.save(commit=False)
-                user.Contraseña = make_password(form.cleaned_data['Contraseña'])
+                user.password = make_password(form.cleaned_data['password'])
                 user.save()
                 return redirect('/crud_usuario')
             except:
                 pass
     else:
         form = UsuarioForm()
-    return render(request, 'Usuarios/index.html', {'form': form})
+    return render(request, 'Usuarios/index.html', {'form': form, 'tipos_usuarios': tipos_usuarios})
 
 @never_cache
 @login_required
@@ -49,20 +51,6 @@ def edit_usuario(request, documento):
         form = UsuarioForm(instance=usuario)
 
     return render(request, 'Usuarios/edit_usuario.html', {'form': form, 'usuario': usuario, 'tipos_usuarios': tipos_usuarios})
-
-@never_cache
-@login_required
-def profile_edit_usuario(request, documento):
-    usuario = Usuarios.objects.get(documento=documento)
-    tipos_usuarios = TipoUsuario.objects.all()
-    if request.method == 'POST':
-        form = UsuarioForm(request.POST, instance=usuario)
-        if form.is_valid():
-            form.save()
-            return redirect('/profile')
-    else:
-        form = UsuarioForm(instance=usuario)
-    return render(request, 'Usuarios/profile_edit_usuario.html', {'form': form, 'usuario': usuario, 'tipos_usuarios': tipos_usuarios})
 
 @never_cache
 @login_required
@@ -94,15 +82,15 @@ def signup(request):
         if form.is_valid():
             try:
                 user = form.save(commit=False)
-                user.Contraseña = make_password(form.cleaned_data['Contraseña'])
+                user.password = make_password(form.cleaned_data['password'])
                 user.save()
                 login(request, user)
                 # messages.success(request, '¡Usuario registrado exitosamente!')
-                return redirect('/')
+                return redirect('/habitaciones_disponibles/?documento={}'.format(user.documento))  
             except Exception as e:
                 print(f"Error al registrar usuario: {e}")
                 return render(request, 'Usuarios/signup.html', {'form': form, 'error_message': 'Error al registrar usuario'})
-    
+        print(form.errors)
     else:
         form = UsuarioForm()
     
@@ -116,22 +104,24 @@ def signin(request):
         
         if form.is_valid():
             username = form.cleaned_data['Nombre']
-            password = form.cleaned_data['Contraseña']
+            password = form.cleaned_data['password']
 
             try:
                 user = Usuarios.objects.get(Nombre=username)
-                if check_password(password, user.Contraseña):
+                if check_password(password, user.password):
                     login(request, user)
                     if user.is_superuser or user.tipo == 101:
                         return redirect('/crud_usuario')
                     else:
                         return redirect('/habitaciones_disponibles/?documento={}'.format(user.documento))   
                 else: 
-                    messages.error(request, 'Contraseña incorrecta.')
+                    messages.error(request, 'password incorrecta.')
             except Usuarios.DoesNotExist:
                 messages.error(request, 'Usuario no encontrado.')
         
+        print(form.errors)
         return render(request, 'Usuarios/signin.html', {'form': form})
+        
 
 @never_cache
 @login_required
@@ -664,3 +654,32 @@ def profile(request):
     user = request.user
     reservas = Reserva.objects.filter(documento=user)
     return render(request, 'Usuarios/profile.html', {'user': user, 'reservas': reservas})
+
+@never_cache
+@login_required
+def profile_edit_usuario(request, documento):
+    usuario = Usuarios.objects.get(documento=documento)
+    tipos_usuarios = TipoUsuario.objects.all()
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile')
+        else:
+            print(form.errors)
+    else:
+        form = UsuarioForm(instance=usuario)
+    return render(request, 'Usuarios/profile_edit_usuario.html', {'form': form, 'usuario': usuario, 'tipos_usuarios': tipos_usuarios})
+
+@never_cache 
+@login_required
+def confirm_destroy_usuario(request, documento):   
+    usuario = Usuarios.objects.get(documento=documento)
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        if check_password(password, usuario.password):
+            return render(request, 'Usuarios/confirm_delete_usuario.html', {'usuario': usuario})
+        else:
+            return HttpResponse('Contraseña incorrecta. No se pudo confirmar la eliminación de la cuenta.')
+    return render(request, 'Usuarios/confirm_delete_usuario_form.html', {'usuario': usuario})
+    return redirect('crud_usuario')

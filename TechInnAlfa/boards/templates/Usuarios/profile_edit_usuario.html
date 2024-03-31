@@ -11,17 +11,14 @@
         <a href="/profile"><button class="btn nav__btn p-4">Volver</button></a>
     </header>
     <div class="container mt-5">
-        <form method="POST" class="post-form" action="/update_usuario/{{usuario.documento}}" enctype="multipart/form-data">
+        <form method="POST" class="post-form" action="/profile_edit_usuario/{{usuario.documento}}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="mb-4">Actualizar Detalles</h3>
                 </div>
                 <div class="col-md-6">
-                    {% comment %} <div class="mb-3">
-                        <label class="form-label">Documento:</label>
-                        <input type="text" class="form-control" name="documento" id="id_documento" required maxlength="20" value="{{ usuario.documento }}"/>
-                    </div> {% endcomment %}
+                    <input type="hidden" name="documento" value="{{ usuario.documento }}">
                     <div class="mb-3">
                         <label class="form-label">Nombre:</label>
                         <input type="text" class="form-control" name="Nombre" id="id_Nombre" required maxlength="100" value="{{ usuario.Nombre }}" />
@@ -44,22 +41,10 @@
                         <label class="form-label">Género:</label>
                         <input type="text" class="form-control" name="genero" id="id_genero" maxlength="20" value="{{ usuario.genero }}" />
                     </div>
-                    {% comment %} <div class="mb-3">
-                        <label class="form-label">Estado:</label>
-                        <input type="text" class="form-control" name="estado" id="id_estado" maxlength="20" value="{{ usuario.estado }}" />
-                    </div> {% endcomment %}
-                    {% comment %} <div class="mb-3">
-                        <label class="form-label">Contraseña:</label>
-                        <input type="password" class="form-control" name="Contraseña" id="id_Contraseña" required maxlength="200" value="{{ usuario.Contraseña }}" />
-                    </div> {% endcomment %}
-                    {% comment %} <div class="mb-3">
-                        <label class="form-label">ID Tipo:</label>
-                        <select class="form-control" name="tipo" id="tipo" required>
-                            {% for tipo_usuario in tipos_usuarios %}
-                                <option value="{{ tipo_usuario.id }}" {% if tipo_usuario.id == usuario.tipo.pk %}selected{% endif %}>{{ tipo_usuario.rol }}</option>
-                            {% endfor %}
-                        </select>
-                    </div> {% endcomment %}
+                    <input type="hidden" name="estado" value="{{ usuario.estado }}">
+                    <input type="hidden" name="password" value="{{ usuario.password }}">
+                    <input type="hidden" name="tipo" value="{{ usuario.tipo_id }}">
+
                     <div class="mb-3">
                         <label class="form-label">Foto:</label>
                         <input type="file" class="form-control" name="foto" id="foto" accept="image/*">

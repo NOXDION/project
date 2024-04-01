@@ -518,12 +518,14 @@ def addnew_reserva(request):
     if request.method == 'POST':
         form = ReservaForm(request.POST)
         if form.is_valid():
-            try:
-                reserva = form.save(commit=False)
-                reserva.save()
+            reserva = form.save(commit=False)
+            reserva.save()
+            if usuario == 101:
                 return redirect('/crud_reserva')
-            except:
-                pass
+            elif usuario == 105:
+                return redirect('/profile')
+            else:
+                return redirect('/recepcionista')
     else:
         form = ReservaForm()
     return render(request, 'Reservas/addnew_reserva.html', {'form': form, 'usuarios': usuarios, 'habitaciones': habitaciones})
@@ -572,22 +574,20 @@ def destroy_reserva(request, id):
 
 @never_cache
 @login_required
-def confirmacion_reserva(request):
-    documento_usuario = request.user.documento
+def confirmacion_reserva(request, numero):
+    user = request.user
+    usuarios = Usuarios.objects.all()
+    habitacion = Habitacion.objects.get(numero=numero)
     if request.method == 'POST':
         form = ReservaForm(request.POST)
         if form.is_valid():
-            try:
-                reserva = form.save(commit=False)
-                reserva.documento = request.user
-                context = {'documento_usuario': documento_usuario}
-                reserva.save()
-                return render(request, 'Habitaciones/habitacion.html', context)
-            except:
-                pass
+            reserva = form.save(commit=False)
+            reserva.save()
+            context = {'habitacion': habitacion}
+            return render(request, 'Habitaciones/habitacion.html', context)
     else:
-        form = ReservaForm()    
-    return render(request, 'Reservas/confirmacion_reserva.html', {'form': form})
+        form = ReservaForm(initial={'documento': num_habitacion})
+    return render(request, 'Reservas/confirmacion_reserva.html', {'form': form, 'habitacion': habitacion})
 
 
 #Reservas por usuario
@@ -786,5 +786,3 @@ def factura_recepcionista(request):
     facturas = Factura.objects.all()
     context = {'usuario': usuario,'facturas': facturas}
     return render(request, 'Recepcionista/factura_recepcionista.html', context)
-
-

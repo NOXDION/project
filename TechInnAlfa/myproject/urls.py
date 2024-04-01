@@ -41,7 +41,7 @@ urlpatterns = [
     path('edit_reserva/<int:id>/', views.edit_reserva, name='edit_reserva'),
     path('update_reserva/<int:id>/', views.update_reserva, name='update_reserva'),
     path('delete_reserva/<int:id>/', views.destroy_reserva, name='destroy_reserva'),
-    path('confirmacion_reserva/', views.confirmacion_reserva, name='confirmacion_reserva'),
+    path('confirmacion_reserva/<int:numero>/', views.confirmacion_reserva, name='confirmacion_reserva'),
 #Consumos
     path('crud_consumo/', views.crud_consumos, name='crud_consumos'),
     path('addnew_consumo/', views.addnew_consumo, name='addnew_consumo'),

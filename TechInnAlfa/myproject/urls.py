@@ -81,7 +81,18 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile_edit_usuario/<int:documento>', views.profile_edit_usuario, name='profile_edit_usuario'),
     path('confirm_delete_usuario/<int:documento>', views.confirm_destroy_usuario, name='confirm_delete_usuario'),
-    
+
+#Perfil de recepcionista
+    path('recepcionista/', views.perfil_recepcionista, name='perfil_recepcionista'),
+    path('consumo_recepcionista/', views.consumo_recepcionista, name='consumo_recepcionista'),
+    path('addnew_consumo_recepcionista/', views.addnew_consumo_recepcionista, name='addnew_consumo_recepcionista'),
+    path('edit_consumo_recepcionista/<int:id>/', views.edit_consumo_recepcionista, name='edit_consumo_recepcionista'),
+    path('habitacion_recepcionista/', views.habitacion_recepcionista, name='habitacion_recepcionista'),
+    path('edit_habitacion_recepcionista/<int:numero>', views.edit_habitacion_recepcionista, name='edit_habitacion_recepcionista'),
+    path('factura_recepcionista/', views.factura_recepcionista, name='factura_recepcionista'),
+    path('addnew_reserva_recepcionista/', views.addnew_reserva_recepcionista, name='addnew_reserva_recepcionista'),
+    path('edit_reserva_recepcionista/<int:id>/', views.edit_reserva_recepcionista, name='edit_reserva_recepcionista'),
+
 #ResetPassword
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="autenticacion/password-reset.html"), name='password_reset'),
     path('reset_password_send/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),

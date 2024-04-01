@@ -112,6 +112,8 @@ def signin(request):
                     login(request, user)
                     if user.is_superuser or user.tipo_id == 101:
                         return redirect('/crud_usuario')
+                    elif user.tipo_id == 102:
+                        return redirect('/recepcionista')
                     else:
                         return redirect('/habitaciones_disponibles/?documento={}'.format(user.documento))   
                 else: 
@@ -182,11 +184,15 @@ def edit_habitacion(request, numero):
 def update_habitacion(request, numero):
     habitacion = Habitacion.objects.get(numero=numero)
     form = HabitacionForm(request.POST, request.FILES, instance=habitacion)
+    usuario = request.user.tipo.rol if request.user.tipo else None
     if form.is_valid():
         if 'imagen' in request.FILES:
             habitacion.imagen = request.FILES['imagen']
         form.save()
-        return redirect('/crud_habitacion')
+        if usuario == 101:
+            return redirect('/crud_habitacion')
+        else:
+            return redirect('/habitacion_recepcionista')
     else:
         form = HabitacionForm(instance=habitacion)
     return render(request, 'Habitaciones/edit_habitacion.html', {'habitacion': habitacion, 'form': form})
@@ -535,25 +541,34 @@ def edit_reserva(request, id):
 @login_required
 def update_reserva(request, id):
     reserva = Reserva.objects.get(id=id)
-
+    usuario = request.user.tipo.rol if request.user.tipo else None
     if request.method == 'POST':
         form = ReservaForm(request.POST, instance=reserva)
         if form.is_valid():
             form.save()
-            return redirect('/crud_reserva')
+            if usuario == 101:
+                return redirect('/crud_reserva')
+            else:
+                return redirect('/recepcionista')
         else:
             print(form.errors)
     else:
         form = ReservaForm(instance=reserva)
-
-    return render(request, 'Reservas/edit_reserva.html', {'form': form, 'reserva': reserva})
+    if usuario == 101:
+        return render(request,'Reservas/edit_reserva.html', {'form': form, 'reserva': reserva})
+    else:
+        return render(request,'/Recepcionista/edit_reserva_recepcionista', {'form': form, 'reserva': reserva})
 
 @never_cache
 @login_required
 def destroy_reserva(request, id):
     reserva = Reserva.objects.get(id=id)
     reserva.delete()
-    return redirect('/crud_reserva')
+    usuario = request.user.tipo.rol if request.user.tipo else None
+    if usuario == 101:
+        return redirect('/crud_reserva')
+    else:
+        return redirect('/recepcionista')
 
 @never_cache
 @login_required
@@ -598,12 +613,9 @@ def addnew_consumo(request):
     if request.method == 'POST':
         form = ConsumosForm(request.POST)
         if form.is_valid():
-            try:
-                consumo = form.save(commit=False)
-                consumo.save()
-                return redirect('/crud_consumo')
-            except:
-                pass
+            consumo = form.save(commit=False)
+            consumo.save()
+            return redirect('/crud_consumo')
     else:
         form = ConsumosForm()
     return render(request, 'Consumos/addnew_consumo.html', {'form': form})
@@ -619,12 +631,15 @@ def edit_consumo(request, id):
 @login_required
 def update_consumo(request, id):
     consumo = Consumos.objects.get(id=id)
-
+    usuario = request.user.tipo.rol if request.user.tipo else None
     if request.method == 'POST':
         form = ConsumosForm(request.POST, instance=consumo)
         if form.is_valid():
             form.save()
-            return redirect('/crud_consumo')
+            if usuario == 101:
+                return redirect('/crud_consumo')
+            else:
+                return redirect('/consumo_recepcionista')
         else:
             print(form.errors)
     else:
@@ -635,10 +650,13 @@ def update_consumo(request, id):
 @never_cache
 @login_required
 def destroy_consumo(request, id):
+    usuario = request.user.tipo.rol if request.user.tipo else None
     consumo = Consumos.objects.get(id=id)
     consumo.delete()
-    return redirect('/crud_consumo')
-
+    if usuario == 101:
+        return redirect('/crud_consumo')
+    else:
+        return redirect('/consumo_recepcionista')
 
 #crud factura
 @never_cache
@@ -683,3 +701,90 @@ def confirm_destroy_usuario(request, documento):
             return HttpResponse('Contraseña incorrecta. No se pudo confirmar la eliminación de la cuenta.')
     return render(request, 'Usuarios/confirm_delete_usuario_form.html', {'usuario': usuario})
     return redirect('crud_usuario')
+
+
+#Perfil de Recepcionista
+@never_cache
+@login_required
+def perfil_recepcionista(request):
+    usuario = request.user
+    reservas = Reserva.objects.all()
+    context = {'usuario': usuario,'reservas': reservas}
+    return render(request, 'Recepcionista/recepcionista.html', context)
+
+@never_cache
+@login_required
+def addnew_reserva_recepcionista(request):
+    usuarios = Usuarios.objects.all()
+    habitaciones = Habitacion.objects.all()
+    if request.method == 'POST':
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            reserva = form.save(commit=False)
+            reserva.save()
+            return redirect('/recepcionista')
+    else:
+        form = ReservaForm()
+    return render(request, 'Recepcionista/addnew_reserva_recepcionista.html', {'form': form, 'usuarios': usuarios, 'habitaciones': habitaciones})
+
+@never_cache
+@login_required
+def edit_reserva_recepcionista(request, id):
+    usuarios = Usuarios.objects.all()
+    habitacion = Habitacion.objects.all()
+    reserva = Reserva.objects.get(id=id)
+    form = ReservaForm(instance=reserva)
+    return render(request, 'Recepcionista/edit_reserva_recepcionista.html', {'form': form, 'reserva': reserva, 'usuarios': usuarios, 'habitacion': habitacion}) 
+
+@never_cache
+@login_required
+def consumo_recepcionista(request):
+    usuario = request.user
+    consumos = Consumos.objects.all()
+    context = {'usuario': usuario,'consumos': consumos}
+    return render(request, 'Recepcionista/consumo_recepcionista.html', context)
+
+@never_cache
+@login_required
+def addnew_consumo_recepcionista(request):
+    if request.method == 'POST':
+        form = ConsumosForm(request.POST)
+        if form.is_valid():
+            consumo = form.save(commit=False)
+            consumo.save()
+            return redirect('/consumo_recepcionista')
+    else:
+        form = ConsumosForm()
+    return render(request, 'Recepcionista/addnew_consumo_recepcionista.html', {'form': form})
+
+@never_cache
+@login_required
+def edit_consumo_recepcionista(request, id):
+    consumo = Consumos.objects.get(id=id)
+    form = ConsumosForm(instance=consumo)
+    return render(request, 'Recepcionista/edit_consumo_recepcionista.html', {'form': form, 'consumo': consumo})  
+
+@never_cache
+@login_required
+def habitacion_recepcionista(request):
+    usuario = request.user
+    habitacion = Habitacion.objects.all()
+    context = {'usuario': usuario,'habitacion': habitacion}
+    return render(request, 'Recepcionista/habitacion_recepcionista.html', context)
+
+@never_cache
+@login_required
+def edit_habitacion_recepcionista(request, numero):
+    habitacion = Habitacion.objects.get(numero=numero)
+    tipos_habitacion = TipoHabitacion.objects.all()
+    return render(request, 'Recepcionista/edit_habitacion_recepcionista.html', {'habitacion':habitacion, 'tipos_habitacion': tipos_habitacion})
+
+@never_cache
+@login_required
+def factura_recepcionista(request):
+    usuario = request.user
+    facturas = Factura.objects.all()
+    context = {'usuario': usuario,'facturas': facturas}
+    return render(request, 'Recepcionista/factura_recepcionista.html', context)
+
+

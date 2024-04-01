@@ -16,6 +16,8 @@
     <header class="header-s">
         {% if user.tipo_id ==  101%}
             <a href="/crud_usuario" class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
+        {% elif user.tipo_id ==  102%}
+            <a href="/recepcionista"  class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
         {% else %}
             <a href="/habitaciones_disponibles"  class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
         {% endif %}

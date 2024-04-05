@@ -16,35 +16,56 @@
         <a href="{% url 'profile' %}"><button class="btn">Perfil</button></a>
     </header>
 
-    <main class="container mt-4">
-        <form class="mb-3">
-            <div class="form-group">
-                <label for="fechaInicio">Fecha de Inicio:</label>
-                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
-            </div>
-            <div class="form-group">
-                <label for="fechaFin">Fecha de Fin:</label>
-                <input type="date" class="form-control" id="fechaFin" name="fechaFin">
-            </div>
-            <div class="form-group">
-                <label for="precioMin">Precio Mínimo:</label>
-                <input type="number" class="form-control" id="precioMin" name="precioMin">
-            </div>
-            <div class="form-group">
-                <label for="precioMax">Precio Máximo:</label>
-                <input type="number" class="form-control" id="precioMax" name="precioMax">
-            </div>
-            <div class="form-group">
-                <label for="tipo">Tipo:</label>
-                <select class="form-control" name="tipo" id="tipo" required>
-                    {% for tipo_habitacion in tipos_habitacion %}
-                        <option value="{{ tipo_habitacion.id }}" {% if tipo_habitacion.id == habitacion.tipo.pk %}selected{% endif %}>{{ tipo_habitacion.tipo }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <button type="button" class="btn btn-primary">Buscar 🚀</button>
-        </form>
+    <div class="banner">
+        <h1>Habitaciones</h1>
+    </div>
 
+    <section class="section__container booking__container mt-5">
+        <form action="/" class="booking__form">
+            <div class="input__group">
+                <span><i class="ri-calendar-2-fill"></i></span>
+                <div>
+                    <label for="fechaInicio">FECHA-INGRESO</label>
+                    <input type="text" placeholder="AAAA-MM-DD" id="fechaInicio" name="fechaInicio"/>
+                </div>
+            </div>
+
+            <div class="input__group">
+                <span><i class="ri-calendar-2-fill"></i></span>
+                <div>
+                    <label for="fechaFin">FECHA-SALIDA</label>
+                    <input type="text" placeholder="AAAA-MM-DD" id="fechaFin" name="fechaFin"/>
+                </div>
+            </div>
+
+            <div class="input__group">
+                <span><i class="ri-money-dollar-circle-fill"></i></span>
+                <div>
+                    <label for="rangoPrecio">RANGO-PRECIO</label>
+                    <input type="number" placeholder="Ingresar precio" />
+                </div>
+            </div>
+
+            <div class="input__group">
+                <span><i class="ri-hotel-fill"></i></span>
+                <div>
+                    <label for="personas">TIPO-HABITACION</label>
+                    <select class="form-control" name="tipo" id="tipo" required>
+                        {% for tipo_habitacion in tipos_habitacion %}
+                        <option value="{{ tipo_habitacion.id }}" {% if tipo_habitacion.id == habitacion.tipo.pk %}selected{% endif %}>{{ tipo_habitacion.tipo }}</option>
+                        {% endfor %}
+                    </select>
+                  <!-- <input type="text" placeholder="Ingresar personas" /> -->
+                </div>
+              </div>
+
+            <div class="input__group input__btn">
+            <button class="btn">COMPROBAR</button>
+            </div>
+        </form>
+    </section>
+
+    <main class="container mt-4">
         <table class="table">
             <thead>
                 <tr>

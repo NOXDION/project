@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 * {
     padding: 0;
@@ -6,14 +7,9 @@
     box-sizing: border-box;
   }
 
-/* :root {
---primary-color: #379237;
---primary-color-dark: #1A5D1A;
---text-dark: #0c0a09;
---text-light: #78716c;
---white: #ffffff;
+:root {
 --max-width: 1200px;
-} */
+}
 
 body {
     /* background-image: url("https://img.freepik.com/vector-gratis/fondo-luminoso-puntos_1055-3132.jpg?t=st=1711566408~exp=1711570008~hmac=c740db549444db531d83c24326c6d1b3edb1c7e9de0478348ac9079edba8de0f&w=740"); */
@@ -55,3 +51,78 @@ body {
     background-color: #1A5D1A;
     color: white;
 }
+
+.banner{
+    height: 400px;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg");
+    padding-block: 3rem;
+    display: grid;
+    grid-template-columns:
+        minmax(1rem, 1fr)
+        minmax(0, var(--max-width))
+        minmax(1rem, 1fr);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.banner h1 {
+    color: white;
+    font-size: 3rem; /* Tamaño de fuente grande */
+    font-family: "Pacifico", cursive;
+}
+
+.booking__container {
+    padding-block: 0;
+  }
+  
+  .booking__form {
+    padding: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 10px;
+    transform: translateY(-50%);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .input__group {
+    flex: 1 1 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .input__group span {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+  }
+  
+  .input__group label {
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+  
+  .input__group input {
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    padding-block: 5px;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    outline: none;
+    border: none;
+  }
+  
+  .input__group input::placeholder {
+    color: var(--text-light);
+  }

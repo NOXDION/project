@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
+    <title>PERFIL</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="{% static 'perfil.css' %}">
@@ -21,7 +21,7 @@
         {% else %}
             <a href="/habitaciones_disponibles"  class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
         {% endif %}
-        <a href="/"><button class="btn">Salir</button></a>
+        <a href="/signout"><button class="btn"><i class="ri-logout-box-line"></i> Cerrar sesión</button></a>
     </header>
 
     <section class="seccion-perfil">
@@ -61,6 +61,15 @@
             </div>          
         </div>
     </section>
+    <footer>
+        <div class="logo">
+            <a href="#home"><img src="../static/img/logo.png" alt="logo" /></a>
+        </div>
+        <div class="footer__bar">
+            <p>Copyright © 2024 SENA. All rights reserved.</p>
+        </div>
+        <a href="/"><button class="btn">Inicio</button></a>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

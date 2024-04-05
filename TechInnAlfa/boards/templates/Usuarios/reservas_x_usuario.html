@@ -5,13 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESERVAS HECHAS</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>MIS RESERVAS</title>
+    <link rel="stylesheet" href="{% static 'reservas-perfil.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
-    <header class="p-3" style="background-color: black; padding: 20px;">
-        <a href="/profile"><button class="btn nav__btn p-4">Volver</button></a>
+    <header class="header-s">
+        <a href="/profile" class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
+        <a href="/signout"><button class="btn"><i class="ri-logout-box-line"></i> Cerrar sesión</button></a>
     </header>
+    
     <div class="container">
         <h1 class="mt-5 mb-4">RESERVAS HECHAS</h1>
 
@@ -31,6 +35,6 @@
             </ul>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 </html>

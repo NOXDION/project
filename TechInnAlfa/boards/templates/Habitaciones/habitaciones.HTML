@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Habitaciones Disponibles</title>
+    <title>HABITACIONES DISPONIBLES</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'habitaciones.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
@@ -64,34 +64,77 @@
             </div>
         </form>
     </section>
-
-    <main class="container mt-4">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Imagen</th>
-                    <th>Habitación</th>
-                    <th>Tipo</th>
-                    <th>Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for habitacion in habitaciones_disponibles %}
-                    <tr>
-                        <td>{% if habitacion.imagen %}
-                                <img style="max-width: 30%;" src="{{ habitacion.imagen.url }}" alt="Imagen de la habitación">
-                            {% else %}
-                                <p>No hay imagen disponible</p>
-                            {% endif %}</td>
-                        <td>{{ habitacion.numero }}</td>
-                        <td>{{ habitacion.tipo }}</td>
-                        <td>{{ habitacion.costo_base }}</td>
-                        <td><a href='/habitacion/{{habitacion.numero}}/' class="btn btn-primary">Ver</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
+    
+    <section class="panel-usuarios mb-5">
+        <table class="tabla-desktop">
+            <tr>
+                <th>Imágen</th>
+                <th>Habitación</th>
+                <th>Tipo</th>
+                <th>Precio</th>
+                <th>Ver</th>
+            </tr>
+            {% for habitacion in habitaciones_disponibles %}
+            <tr>
+                <td>
+                    {% if habitacion.imagen %}
+                        <img src="{{ habitacion.imagen.url }}" alt="Foto habitacion" class="foto-perfil">
+                    {% else %}
+                        Foto de perfil no disponible
+                    {% endif %}
+                </td>
+                <td>{{ habitacion.numero }}</td>
+                <td>{{ habitacion.tipo }}</td>
+                <td>{{ habitacion.costo_base }}</td>
+                
+                <td><a href="/habitacion/{{habitacion.numero}}/" class="btn">Ver</a></td>
+            </tr>
+            {% endfor %}
         </table>
-    </main>
 
+        <div class="tabla-mobile">
+            <div class="fila">
+                {% for habitacion in habitaciones_disponibles %}
+              <div class="columna">
+                    <div class="header">Imágen</div>
+                    <div class="contenido">
+                    {% if habitacion.imagen %}
+                        <img src="{{ habitacion.imagen.url }}" alt="Foto de perfil" class="foto-perfil">
+                    {% else %}
+                        Foto de perfil no disponible
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="columna">
+                    <div class="header">Habitación</div>
+                    <div class="contenido">{{ habitacion.numero }}</div>
+                </div>
+                <div class="columna">
+                    <div class="header"><p>Tipo</p></div>
+                    <div class="contenido"><p>{{ habitacion.tipo }}</p></div>
+                </div>
+                <div class="columna">
+                    <div class="header">Precio</div>
+                    <div class="contenido">{{ habitacion.costo_base }}</div>
+                </div>
+                <div class="columna">
+                    <div class="header">Ver</div>
+                    <div class="contenido"><a href="/habitacion/{{habitacion.numero}}/" class="btn">Editar</a></div>
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <footer class="d-flex align-items-center justify-content-between">
+        <div class="logo d-flex flex-column">
+            <a href="#home"><img src="../static/img/logo.png" alt="logo" /></a>
+        </div>
+        <div class="footer__bar">
+            <p>Copyright © 2024 SENA. All rights reserved.</p>
+        </div>
+        <a href="/"><button class="btn">Inicio</button></a>
+    </footer>
 </body>
 </html>

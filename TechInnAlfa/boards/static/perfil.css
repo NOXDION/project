@@ -136,6 +136,35 @@ body {
     color: #1A5D1A;
 }
 
+footer{
+    background-color: black;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+  }
+
+  .logo{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .logo img{
+    width: 100px;
+    height: 100px;
+  }
+  
+  .footer__bar p{
+    color: white;
+  }
+  
+@media (width < 768px) {
+    footer{
+      flex-direction: column;
+    }
+}
+
 @media (width < 400px) {
     .tarjeta{
         width: 100%;

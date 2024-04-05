@@ -1,11 +1,20 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmar Contraseña para Eliminar Cuenta</title>
+    <title>ELIMINAR CUENTA</title>
+    <link rel="stylesheet" href="{% static 'eliminar-perfil.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
+    <header class="header-s">
+        <a href="/profile" class="enlace-1"><i class="ri-arrow-left-line"></i> Volver</a>
+        <a href="/signout"><button class="btn"><i class="ri-logout-box-line"></i> Cerrar sesión</button></a>
+    </header>
+
     <h2>Confirmar Contraseña para Eliminar Cuenta</h2>
     <form action="{% url 'confirm_delete_usuario' documento=user.documento %}" method="post">
         {% csrf_token %}

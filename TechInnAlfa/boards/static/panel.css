@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .header-s{
     display: flex;
     flex-direction: row;
@@ -64,10 +70,28 @@
     justify-content: center;
 }
 
-footer p{
+footer{
+    background-color: black;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+
+  .logo{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .logo img{
+    width: 100px;
+    height: 100px;
+  }
+  
+  .footer__bar p{
     color: white;
-    text-align: center;
-}
+  }
 
 /* MOBILE */
 

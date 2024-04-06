@@ -20,7 +20,7 @@
         <h1>Habitaciones</h1>
     </div>
 
-    <section class="section__container booking__container mt-5">
+    <section  class="section__container booking__container mt-5">
         <form action="/" class="booking__form">
             <div class="input__group">
                 <span><i class="ri-calendar-2-fill"></i></span>
@@ -65,7 +65,7 @@
         </form>
     </section>
     
-    <section class="panel-usuarios mb-5">
+    <section id="contenidoEstaticoHabitaciones" class="panel-usuarios mb-5">
         <table class="tabla-desktop">
             <tr>
                 <th>Imágen</th>
@@ -127,6 +127,10 @@
         </div>
     </section>
 
+    <section id="habitacionesTabla" class="panel-usuarios mb-5">
+        <!-- Tabla de habitaciones se llenará mediante AJAX -->
+    </section>
+
     <footer class="d-flex align-items-center justify-content-between">
         <div class="logo d-flex flex-column">
             <a href="#home"><img src="../static/img/logo.png" alt="logo" /></a>
@@ -136,5 +140,28 @@
         </div>
         <a href="/"><button class="btn">Inicio</button></a>
     </footer>
-</body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          $(".booking__form").on("submit", function(event) {
+            event.preventDefault();
+            $.ajax({
+              url: "{% url 'filtrar_habitaciones' %}",
+              type: 'GET',
+              data: {
+                fechaInicio: $('#fechaInicio').val(),
+                fechaFin: $('#fechaFin').val(),
+                tipo: $('#tipo').val(),
+              },
+              success: function(data) {
+                    $('#habitacionesTabla').html(data.html);
+                    $('#contenidoEstaticoHabitaciones').hide();
+                }
+            });
+          });
+        });
+        </script>
+</body> 
+</html>
 </html>

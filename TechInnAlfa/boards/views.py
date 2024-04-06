@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from boards.forms import *
 from boards.models import *
-from django.contrib.auth import login
-from django.contrib.auth import logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
+from django.template.loader import render_to_string
 # Create your views here.
 def index(request):
      return render(request,'base2.html')
@@ -141,6 +141,14 @@ def habitaciones(request):
     tipos_habitacion = TipoHabitacion.objects.all()
     context = {'habitaciones_disponibles': habitaciones_disponibles, 'tipos_habitacion': tipos_habitacion, 'documento_usuario': documento_usuario}
     return render(request, 'Habitaciones/habitaciones.html', context)
+
+def filtrar_habitaciones(request):
+        fecha_inicio = request.GET.get('fechaInicio')
+        fecha_fin = request.GET.get('fechaFin')
+        tipo = request.GET.get('tipo')
+        habitaciones_filtradas = Habitacion.objects.filter(tipo=tipo)
+        html = render_to_string('Habitaciones\habitaciones_filtradas.html', {'habitaciones_disponibles': habitaciones_filtradas})
+        return JsonResponse({'html': html})
 
 @never_cache
 @login_required

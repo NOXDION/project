@@ -592,7 +592,7 @@ def confirmacion_reserva(request, numero):
             reserva = form.save(commit=False)
             reserva.save()
             context = {'habitacion': habitacion}
-            return render(request, 'Habitaciones/habitacion.html', context)
+            return redirect('reservas_x_usuario', user.documento)
     else:
         form = ReservaForm(initial={'documento': num_habitacion})
     return render(request, 'Reservas/confirmacion_reserva.html', {'form': form, 'habitacion': habitacion})

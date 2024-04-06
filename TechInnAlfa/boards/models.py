@@ -43,7 +43,6 @@ class Usuarios(AbstractBaseUser, PermissionsMixin):
     telefono = models.CharField(max_length=15, null=True, blank=True)
     genero = models.CharField(max_length=20, null=True, blank=True)
     estado = models.CharField(max_length=20, null=True, blank=True, default='Activo')
-    Contraseña = models.CharField(max_length=200, null=True, blank=True,)
     tipo = models.ForeignKey(TipoUsuario, on_delete=models.SET_NULL, null=True, blank=True, default='105')
     foto = models.ImageField(upload_to='usuario_imagenes/', null=True, blank=True, default='usuario_imagenes/default.png')
     
@@ -111,7 +110,7 @@ class Reserva(models.Model):
     fecha_ingreso = models.DateField(null=True)
     fecha_salida = models.DateField(null=True)
     nro_habitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE)
-    comentarios = models.CharField(max_length=300, null=True)
+    comentarios = models.CharField(max_length=300, null=True, blank=True,)
 
     class Meta:
         db_table = 'tbReserva'

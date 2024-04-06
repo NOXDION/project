@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuarios
-        fields = ['documento', 'Nombre', 'Apellido', 'email', 'telefono', 'genero', 'estado', 'Contraseña', 'password', 'tipo', 'foto']
+        fields = ['documento', 'Nombre', 'Apellido', 'email', 'telefono', 'genero', 'estado', 'password', 'tipo', 'foto']
         widgets = {
             'documento': forms.TextInput(attrs={'class': 'form-control'}),
             'Nombre': forms.TextInput(attrs={'class': 'form-control'}),
@@ -15,7 +15,6 @@ class UsuarioForm(forms.ModelForm):
             'telefono': forms.TextInput(attrs={'class': 'form-control'}),
             'genero': forms.TextInput(attrs={'class': 'form-control'}),
             'estado': forms.TextInput(attrs={'class': 'form-control'}),
-            'Contraseña': forms.TextInput(attrs={'class': 'form-control'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
             'tipo': forms.Select(attrs={'class': 'form-control'}),
             'foto': forms.ClearableFileInput(attrs={'class': 'form-control'}),

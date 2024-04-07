@@ -5,6 +5,11 @@
 {% block content %}
 <div class="col-md-6 offset-md-3">
     <div class="border p-4" style="background-color: #222831; color: white; border-radius: 15px;">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+            </ul>
+        {% endif %}
         <form method="POST" class="post-form" action="/addnew_reserva/">
             {% csrf_token %}
             <div class="container">

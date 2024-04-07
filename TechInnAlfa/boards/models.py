@@ -152,7 +152,7 @@ class Reserva_Respaldo(models.Model):
     FechaIngreso = models.DateField(null=True)
     FechaSalida = models.DateField(null=True)
     Nro_habitacion = models.IntegerField(null=True)
-    Comentarios = models.CharField(max_length=300, null=True)
+    Comentarios = models.CharField(max_length=300, null=True, default='Sin comentarios por el cliente')
 
     class Meta:
         db_table = 'tbReserva_Respaldo'

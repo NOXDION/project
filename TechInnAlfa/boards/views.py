@@ -523,17 +523,28 @@ def crud_reserva(request):
 def addnew_reserva(request):
     usuarios = Usuarios.objects.all()
     habitaciones = Habitacion.objects.all()
+    user = request.user
     if request.method == 'POST':
         form = ReservaForm(request.POST)
         if form.is_valid():
+            fecha_ingreso = form.cleaned_data['fecha_ingreso']
+            fecha_salida = form.cleaned_data['fecha_salida']
+            habitacion = form.cleaned_data['nro_habitacion']
+            if fecha_ingreso >= fecha_salida:
+                messages.error(request, "La fecha de inicio debe ser anterior a la fecha de salida.")
+                return redirect('addnew_reserva')
             reserva = form.save(commit=False)
-            reserva.save()
-            if usuario == 101:
-                return redirect('/crud_reserva')
-            elif usuario == 105:
-                return redirect('/profile')
+            if check_availability(habitacion.numero, reserva.fecha_ingreso, reserva.fecha_salida):
+                reserva.save()
+                if user.tipo_id == 101:
+                    return redirect('/crud_reserva')
+                elif usuario == 105:
+                    return redirect('/profile')
+                else:
+                    return redirect('/recepcionista')
             else:
-                return redirect('/recepcionista')
+                messages.error(request, "La habitación seleccionada no está disponible para las fechas elegidas.")
+                return redirect('addnew_reserva')
     else:
         form = ReservaForm()
     return render(request, 'Reservas/addnew_reserva.html', {'form': form, 'usuarios': usuarios, 'habitaciones': habitaciones})
@@ -551,12 +562,12 @@ def edit_reserva(request, id):
 @login_required
 def update_reserva(request, id):
     reserva = Reserva.objects.get(id=id)
-    usuario = request.user.tipo.rol if request.user.tipo else None
+    user = request.user
     if request.method == 'POST':
         form = ReservaForm(request.POST, instance=reserva)
         if form.is_valid():
             form.save()
-            if usuario == 101:
+            if user.tipo_id == 101:
                 return redirect('/crud_reserva')
             else:
                 return redirect('/recepcionista')
@@ -572,13 +583,22 @@ def update_reserva(request, id):
 @never_cache
 @login_required
 def destroy_reserva(request, id):
+    user = request.user
     reserva = Reserva.objects.get(id=id)
     reserva.delete()
     usuario = request.user.tipo.rol if request.user.tipo else None
-    if usuario == 101:
+    if user.tipo_id == 101:
         return redirect('/crud_reserva')
     else:
         return redirect('/recepcionista')
+
+def check_availability(nro_habitacion, fecha_ingreso, fecha_salida):
+    reservas_existentes = Reserva.objects.filter(
+        nro_habitacion_id=nro_habitacion,
+        fecha_ingreso__lte=fecha_salida,
+        fecha_salida__gte=fecha_ingreso,
+    ).exists()
+    return not reservas_existentes
 
 @never_cache
 @login_required
@@ -589,12 +609,21 @@ def confirmacion_reserva(request, numero):
     if request.method == 'POST':
         form = ReservaForm(request.POST)
         if form.is_valid():
+            fecha_ingreso = form.cleaned_data['fecha_ingreso']
+            fecha_salida = form.cleaned_data['fecha_salida']
+            if fecha_ingreso >= fecha_salida:
+                messages.error(request, "La fecha de inicio debe ser anterior a la fecha de salida.")
+                return redirect('confirmacion_reserva', numero=habitacion.numero)
             reserva = form.save(commit=False)
-            reserva.save()
-            context = {'habitacion': habitacion}
-            return redirect('reservas_x_usuario', user.documento)
+            if check_availability(habitacion.numero, reserva.fecha_ingreso, reserva.fecha_salida):
+                reserva.save()
+                context = {'habitacion': habitacion}
+                return redirect('reservas_x_usuario', user.documento)
+            else:
+                messages.error(request, "La habitación seleccionada no está disponible para las fechas elegidas.")
+                return redirect('confirmacion_reserva', habitacion.numero)
     else:
-        form = ReservaForm(initial={'documento': num_habitacion})
+        form = ReservaForm(initial={'documento': habitacion})
     return render(request, 'Reservas/confirmacion_reserva.html', {'form': form, 'habitacion': habitacion})
 
 

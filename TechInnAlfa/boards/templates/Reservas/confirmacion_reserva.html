@@ -18,6 +18,11 @@
     </header>
 
     <div class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+            </ul>
+        {% endif %}
         <form method="POST" class="post-form" action="{% url 'confirmacion_reserva' numero=habitacion.numero %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">

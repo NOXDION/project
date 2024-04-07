@@ -14,7 +14,7 @@ urlpatterns = [
     path('edit_usuario/<int:documento>', views.edit_usuario, name='edit_usuario'),
     path('update_usuario/<int:documento>', views.update_usuario, name='update_usuario'),
     path('delete_usuario/<int:documento>', views.destroy_usuario, name='delete_usuario'),
-    path('reservas_x_usuario/<int:documento>/', views.reservas_x_usuario, name='reservas_x_usuario'),
+    path('reservas_x_usuario/<int:documento>/', views.reservas_x_usuario, name='reservas_x_usuario'), 
 #Habitaciones
     path('crud_habitacion', views.crud_habitacion, name='crud_habitacion'),
     path('addnew_habitacion', views.addnew_habitacion, name='addnew_habitacion'),

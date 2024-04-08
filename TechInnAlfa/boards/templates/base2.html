@@ -41,36 +41,29 @@
         <h1>Siéntete como en casa<br/>Bienvenido a<span> HOTEL SENA</span></h1>
       </div>
     </header>
-
-    <!-- <section class="section__container booking__container">
-      <form action="/" class="booking__form">
-        <div class="input__group">
-          <span><i class="ri-calendar-2-fill"></i></span>
-          <div>
-            <label for="check-in">FECHA-INGRESO</label>
-            <input type="text" placeholder="Ingresar fecha" />
-          </div>
-        </div>
-        <div class="input__group">
-          <span><i class="ri-calendar-2-fill"></i></span>
-          <div>
-            <label for="check-out">FECHA-SALIDA</label>
-            <input type="text" placeholder="Ingresar fecha" />
-          </div>
-        </div>
-        <div class="input__group">
-          <span><i class="ri-user-fill"></i></span>
-          <div>
-            <label for="guest">PERSONAS</label>
-            <input type="text" placeholder="Ingresar personas" />
-          </div>
-        </div>
+    
+    <section class="section__container booking__container botones-ingreso">
+      <form action="" class="booking__form">
         <div class="input__group input__btn">
-          <button class="btn">COMPROBAR</button>
+          <a href="/signin" class="btn">Ingresar</a>
         </div>
-      </form>
-    </section> -->
+    </section>
 
+    <!-- FUNCION QUE MUESTRA EL BOTÓN DE INGRESO | RESPONSIVE -->
+
+    <script>
+      window.addEventListener('resize', function() {
+        var screenWidth = window.innerWidth;
+        var botonesIngreso = document.querySelector('.botones-ingreso');
+    
+        if (screenWidth <= 768) {
+          botonesIngreso.style.display = 'block';
+        } else {
+          botonesIngreso.style.display = 'none';
+        }
+      });
+    </script>
+    
     <section class="section__container about__container" id="about">
       <div class="about__image">
         <img src="../static/img/about.jpg" alt="about" />

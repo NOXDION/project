@@ -39,6 +39,40 @@
             </tr>
             {% endfor %}
         </table>
+
+        <div class="tabla-mobile">
+            <div class="fila">
+                {% for habitacion in habitaciones_disponibles %}
+                <div class="columna">
+                    <div class="header">Imágen</div>
+                    <div class="contenido">
+                    {% if habitacion.imagen %}
+                        <img src="{{ habitacion.imagen.url }}" alt="Foto de perfil" class="foto-perfil">
+                    {% else %}
+                        Foto de perfil no disponible
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="columna">
+                    <div class="header">Habitación</div>
+                    <div class="contenido">{{ habitacion.numero }}</div>
+                </div>
+                <div class="columna">
+                    <div class="header">Tipo</div>
+                    <div class="contenido">{{ habitacion.tipo }}</div>
+                </div>
+                <div class="columna">
+                    <div class="header">Precio</div>
+                    <div class="contenido">{{ habitacion.costo_base }}</div>
+                </div>
+                <div class="columna">
+                    <div class="header">Ver</div>
+                    <div class="contenido"><a href="/habitacion/{{habitacion.numero}}/" class="btn">Ver</a></div>
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
     </section>
     
 </body>

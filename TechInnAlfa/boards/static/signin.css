@@ -67,7 +67,6 @@ body{
     border-radius: 10px;
     border: none;
 }
-
 .enlace-1{
     color: white;
 }
@@ -77,12 +76,16 @@ body{
 
 .enlace-2{
     color: white;
-    margin-top: 20px;
+
     margin-bottom: 20px;
 }
 
 .enlace-2:hover{
     color: #379237;
+}
+
+.enlace-3{
+    display: none;
 }
 
 .boton{

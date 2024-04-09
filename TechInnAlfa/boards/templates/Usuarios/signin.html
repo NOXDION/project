@@ -52,11 +52,25 @@
         <div class="input__group input__btn boton">
           <button class="btn btn-primary btn-success boton" type="submit" style="margin-top: 20px;">Iniciar Sesión</button>
         </div>
-        <div class="input__group input__btn">
-          <a href="/#" class="enlace-2">Olvidó su contraseña?</a>
+        <div class="input__group input__btn" style="display: flex; flex-direction: column; justify-content: center;">
+          <a href="/signup" class="enlace-3" style="font-size: 13px; color: #A0153E; display: none;">Registrarse</a>
+          <a href="/#" class="enlace-2" style="font-size: 10px;">¿Olvidó su contraseña?</a>
         </div>
     </form>
 </section>
+
+<script>
+  window.addEventListener('resize', function() {
+    var screenWidth = window.innerWidth;
+    var botonesIngreso = document.querySelector('.enlace-3');
+
+    if (screenWidth <= 768) {
+      botonesIngreso.style.display = 'block';
+    } else {
+      botonesIngreso.style.display = 'none';
+    }
+  });
+</script>
 
 <footer class="footer" id="contact">
   <div class="section__container footer__container">
